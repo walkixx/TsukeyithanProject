@@ -1,6 +1,11 @@
 /** FILE ContainerPlayer **/
+/** Fichier modifié ar chaipokoi**/
+/** Notes:
+	ration de réduction : 
+		largeur:283/1280
+		hauteur:53/240**/ 
 package net.minecraft.src;
-
+import Tsukeyithan.Gui.GuiTools;
 import java.util.List;
 
 public class ContainerPlayer extends Container
@@ -41,13 +46,26 @@ public class ContainerPlayer extends Container
             addSlot(new SlotArmor(this, par1InventoryPlayer, par1InventoryPlayer.getSizeInventory() - 1 - j, 8, 8 + j * 18, j1));
         }
 
-        for (int k = 0; k < 3; k++)
-        {
-            for (int k1 = 0; k1 < 8; k1++)
-            {
-                addSlot(new Slot(par1InventoryPlayer, k1 + (k + 1) * 9, 8 + k1 * 18, 84 + k * 18));
-            }
-        }
+
+	//affichage des slots de l'inventaire
+		//première ligne 
+		float ratioX=GuiTools.getXSizeInventory()/2560F;
+		float ratioY=GuiTools.getYSizeInventory()/1440F;
+		int xSlot;
+		int ySlot;
+		for(int k=0;k<6;k++)
+		{
+			xSlot=(1061 + k *(53+25));
+			ySlot=606;
+			xSlot=(int)(xSlot*ratioX);
+			ySlot=(int)(ySlot*ratioY);
+			System.out.println("xSlot:"+ratioX+" ySlot:"+ratioY);
+			addSlot(new Slot(par1InventoryPlayer, k+9,xSlot, ySlot));
+		}
+
+
+
+
 
         for (int l = 0; l < 8; l++)
         {
