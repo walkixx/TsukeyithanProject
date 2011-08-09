@@ -125,7 +125,21 @@ public class Gui extends GuiTools
 
     /**
      * Draws a textured rectangle at the stored z-value. Args: x, y, u, v, width, height
+     * MODIF Gui: rawTexturedModalRect(float par1, float par2, float par3, float par4, float par5, float par6)
      */
+    public void drawTexturedModalRect(float par1, float par2, float par3, float par4, float par5, float par6)
+    {
+        float f = 0.00390625F;
+        float f1 = 0.00390625F;
+        Tessellator tessellator = Tessellator.instance;
+        tessellator.startDrawingQuads();
+        tessellator.addVertexWithUV(par1 + 0, par2 + par6, zLevel, (float)(par3 + 0) * f, (float)(par4 + par6) * f1);
+        tessellator.addVertexWithUV(par1 + par5, par2 + par6, zLevel, (float)(par3 + par5) * f, (float)(par4 + par6) * f1);
+        tessellator.addVertexWithUV(par1 + par5, par2 + 0, zLevel, (float)(par3 + par5) * f, (float)(par4 + 0) * f1);
+        tessellator.addVertexWithUV(par1 + 0, par2 + 0, zLevel, (float)(par3 + 0) * f, (float)(par4 + 0) * f1);
+        tessellator.draw();
+    }
+    
     public void drawTexturedModalRect(int par1, int par2, int par3, int par4, int par5, int par6)
     {
         float f = 0.00390625F;

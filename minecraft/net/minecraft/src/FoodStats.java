@@ -1,7 +1,5 @@
 package net.minecraft.src;
 
-import Tsukeyithan.Skill.TKHSkill;
-
 public class FoodStats
 {
     /** The player's food level. */
