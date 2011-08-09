@@ -1,4 +1,5 @@
 /** FILE GuiInGame **/
+
 package net.minecraft.src;
 
 import java.awt.Color;

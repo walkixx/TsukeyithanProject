@@ -12,6 +12,7 @@ public class TKHConfig {
 	public static float luminosity;
 	public static boolean wasActive;
 	
+	
 	public static float GetLum(boolean test)
 	{		
 		if(test && luminosity<30)
