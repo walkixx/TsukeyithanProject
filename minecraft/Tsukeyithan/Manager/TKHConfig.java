@@ -11,7 +11,7 @@ public class TKHConfig {
 	public static Minecraft mc;
 	public static float luminosity;
 	public static boolean wasActive;
-	public static int tkhversion = 0xA101;
+	
 	
 	public static float GetLum(boolean test)
 	{		

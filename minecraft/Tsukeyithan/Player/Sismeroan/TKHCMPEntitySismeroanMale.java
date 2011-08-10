@@ -30,16 +30,16 @@ public class TKHCMPEntitySismeroanMale extends EntityClientPlayerMP
 		addSkillEffect(new TKHSkillEffect(TKHSkill.silkTouch.skillID, -1, 0));
 		addSkillEffect(new TKHSkillEffect(TKHSkill.dropMelon.skillID, -1, 0));
 		addSkillEffect(new TKHSkillEffect(TKHSkill.dropPumkin.skillID, -1, 0));
+		this.maxPowerCD = 600;
 	}
 	
 	public void onUpdate() {
 		super.onUpdate();
 
-		if (this.mc.gameSettings.keyBindFPower.isPressed() && powerCD == 0
-				&& !isSkillActive(TKHSkill.stun) && !isSkillActive(TKHSkill.invisibility)) {
+		if (this.mc.gameSettings.keyBindFPower.isPressed() && powerCD == this.maxPowerCD) {
 			this.mc.getSendQueue().addToSendQueue(new Packet136AddSkillEffect(this.entityId, TKHSkill.stun.skillID, 200));
 			this.mc.getSendQueue().addToSendQueue(new Packet136AddSkillEffect(this.entityId, TKHSkill.invisibility.skillID, 200));
-			powerCD = 600;
+			this.powerCD = 1;
 		}
         
         if (this.mc.gameSettings.keyBindSPower.isPressed()) {

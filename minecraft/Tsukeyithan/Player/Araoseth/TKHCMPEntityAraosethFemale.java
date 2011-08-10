@@ -39,15 +39,15 @@ public class TKHCMPEntityAraosethFemale extends EntityClientPlayerMP
 		addSkillEffect(new TKHSkillEffect(TKHSkill.knockBack.skillID, -1, 0));
 		addSkillEffect(new TKHSkillEffect(TKHSkill.dropApple.skillID, -1, 0));
 		addSkillEffect(new TKHSkillEffect(TKHSkill.dropMush.skillID, -1, 0));
+		this.maxPowerCD = 100;
 	}
 	
 	public void onUpdate() {
 		super.onUpdate();
 
-		if (this.mc.gameSettings.keyBindFPower.isPressed() && powerCD == 0
-				&& !isSkillActive(TKHSkill.incJump)) {
+		if (this.mc.gameSettings.keyBindFPower.isPressed() && powerCD > this.maxPowerCD) {
 			this.mc.getSendQueue().addToSendQueue(new Packet136AddSkillEffect(this.entityId, TKHSkill.knockBack.skillID, -1));
-			powerCD = 100;
+			this.powerCD = 1;
 		}
         
         if (this.mc.gameSettings.keyBindSPower.isPressed()) {

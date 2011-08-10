@@ -36,16 +36,15 @@ public class TKHEntityVuurkhenMale extends EntityPlayerSP {
 		addSkillEffect(new TKHSkillEffect(TKHSkill.dropMeat.skillID, -1, 0));
 		addSkillEffect(new TKHSkillEffect(TKHSkill.doubleDamage.skillID, -1, 0));
 		addSkillEffect(new TKHSkillEffect(TKHSkill.reductExplDmg.skillID, -1, 0));
-		isImmuneToFire = true;
+		this.isImmuneToFire = true;
+		this.maxPowerCD = 600;
 	}
 	
 	public void onUpdate() {
 		super.onUpdate();
-
-		if (this.mc.gameSettings.keyBindFPower.isPressed() && powerCD == 0
-				&& !isSkillActive(TKHSkill.carbonization)) {
+		if (this.mc.gameSettings.keyBindFPower.isPressed() && powerCD == this.maxPowerCD) {
 			addSkillEffect(new TKHSkillEffect(TKHSkill.carbonization.skillID, -1, 0));
-			powerCD = 600;
+			this.powerCD = 1;
 		}
         
         if (this.mc.gameSettings.keyBindSPower.isPressed()) {
