@@ -206,6 +206,24 @@ public class GuiIngame extends Gui
 				GL11.glColor4f(1.0F, 1.0F, 1.0F, 1F);		
 				this.mc.renderEngine.bindTexture(this.mc.renderEngine.getTexture("/Tsukeyithan/Texture/HUDNude.png"));
 				DrawTexturedRect(i/2-237/2, j-92, 237,92);
+				this.mc.renderEngine.bindTexture(this.mc.renderEngine.getTexture("/Tsukeyithan/Texture/HUDItemChoice.png"));
+				if(inventoryplayer.currentItem == 0)
+					DrawTexturedRect(i/2-112.9F,j-35, 23, 24);
+				else if(inventoryplayer.currentItem == 1)
+					DrawTexturedRect(i/2-112.9F+22,j-35, 23, 24);				
+				else if(inventoryplayer.currentItem == 2)
+					DrawTexturedRect(i/2-112.9F+45,j-35, 23, 24);				
+				else if(inventoryplayer.currentItem == 3)
+					DrawTexturedRect(i/2-112.9F+68,j-35, 23, 24);
+				else if(inventoryplayer.currentItem == 4)
+					DrawTexturedRect(i/2-112.9F+135,j-35, 23, 24);
+				else if(inventoryplayer.currentItem == 5)
+					DrawTexturedRect(i/2-112.9F+158,j-35, 23, 24);
+				else if(inventoryplayer.currentItem == 6)
+					DrawTexturedRect(i/2-112.9F+181,j-35, 23, 24);
+				else if(inventoryplayer.currentItem == 7)
+					DrawTexturedRect(i/2-112.9F+204,j-35, 23, 24);
+				
 				
 				
 				
