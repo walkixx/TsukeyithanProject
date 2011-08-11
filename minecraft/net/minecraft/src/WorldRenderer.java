@@ -165,7 +165,6 @@ public class WorldRenderer
         {
             return;
         }
-
         needsUpdate = false;
         int i = posX;
         int j = posY;

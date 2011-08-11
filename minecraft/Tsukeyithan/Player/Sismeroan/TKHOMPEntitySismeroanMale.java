@@ -22,6 +22,7 @@ public class TKHOMPEntitySismeroanMale extends EntityOtherPlayerMP
 		this.foodStats.setFoodLevel(40);
         speedOnGround = 0.1F*0.7F;
         speedInAir = 0.02F*0.7F;
+        addSkillEffect(new TKHSkillEffect(TKHSkill.isSismeroan.skillID, -1, 0));
 		addSkillEffect(new TKHSkillEffect(TKHSkill.climb.skillID, -1, 0));
 		addSkillEffect(new TKHSkillEffect(TKHSkill.decFallDmg.skillID, -1, 0));
 		addSkillEffect(new TKHSkillEffect(TKHSkill.silkTouch.skillID, -1, 0));

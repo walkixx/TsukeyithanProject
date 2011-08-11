@@ -16,6 +16,7 @@ import javax.swing.SwingUtilities;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 import org.lwjgl.util.glu.GLU;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
@@ -33,6 +34,9 @@ import net.minecraft.src.GuiButton;
 import net.minecraft.src.GuiScreen;
 import net.minecraft.src.ModelBase;
 import net.minecraft.src.ModelBiped;
+import net.minecraft.src.RenderHelper;
+import net.minecraft.src.RenderLiving;
+import net.minecraft.src.RenderManager;
 import net.minecraft.src.ScaledResolution;
 import net.minecraft.src.Tessellator;
 
@@ -53,6 +57,21 @@ public class GuiSkinEditor extends GuiScreen
 	public boolean drawwer;
 	public String skinUrl;
 	public EntityLiving player;
+
+	public GuiSkinEditor(EntityLiving entity)
+	{
+		super();
+		this.player = entity;
+		this.skinUrl = entity.getTexture();
+		this.model = ((RenderLiving)RenderManager.instance.getEntityRenderObject(entity)).mainModel;
+		this.rotModel = new Vector3f(180,180,0);
+		this.motionSensitivity = 1F;
+		this.scrollSensitivity = 1F;
+		this.zoom = 1F;
+		this.ib = GLAllocation.createDirectIntBuffer(1);
+		this.BIColor = 0xFFFFFFFF;
+		this.drawwer = true;
+	}
 
 	public GuiSkinEditor(ModelBase modelbase, String skin)
 	{
@@ -98,7 +117,7 @@ public class GuiSkinEditor extends GuiScreen
 						rotModel.y -= Mouse.getDX()*motionSensitivity;
 					}
 				}
-				
+
 				if(!toolBar[1].enabled)
 					this.tempColor = this.BIColor = GetPixelColor();
 				else if(!toolBar[3].enabled)
@@ -149,16 +168,18 @@ public class GuiSkinEditor extends GuiScreen
 	}
 
 	/** MODEL **/
-	public void DrawModel(float x, float y, float z){		
+	public void DrawModel(float x, float y, float z){	
+		
 		GL11.glPushMatrix();	
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		drawGradientRect(this.width/2+1, 22, this.width-4, this.height-4, 0xFF5A5A5A, 0xFF5A5A5A);
-		GL11.glTranslatef((int)(((this.width-4)-this.width/2)*1.5), (this.height-26)/2 , 500);
-		GL11.glRotatef(-x, 1, 0, 0);GL11.glRotatef(y, 0, 1, 0);GL11.glRotatef(z, 0, 0, 1);
-		GL11.glScalef(zoom/4, zoom/4, zoom/4);
+		GL11.glColor4f(1F, 1F, 1F, 1F);		
+		//GL11.glTranslatef((int)(((this.width-4)-this.width/2)*1.5), (this.height-26)/2 , 500);
+		//GL11.glRotatef(-x, 1, 0, 0);GL11.glRotatef(y, 0, 1, 0);GL11.glRotatef(z, 0, 0, 1);
+		//GL11.glScalef(zoom/4, zoom/4, zoom/4);
 		this.mc.renderEngine.bindTexture(GetTexture());
-		this.model.render(null, 1F, 0F, 0F, 0F, 0F, -6);
+		//this.model.render(null, 1F, 0F, 0F, 0F, 0F, -6);
+		RenderManager.instance.getEntityRenderObject(this.player).doRender(this.player, 1F, 0F, 0F, 0F, 0F);
 		GL11.glPopMatrix();
+        drawGradientRect(this.width/2+1, 22, this.width-4, this.height-4, 0xFF5A5A5A, 0xFF5A5A5A);
 	}
 
 	/** PATRON **/
@@ -177,11 +198,11 @@ public class GuiSkinEditor extends GuiScreen
 		mc.currentScreen.drawRect(4, this.height/2, (this.width/2) , this.height-4, 0xFF5A5A5A);
 		mc.currentScreen.drawRect(16, 40, (this.width/2)-16 , this.height/2-4, this.BIColor);
 	}
-		
+
 	/** TOOLS **/
-	
+
 	protected void actionPerformed(GuiButton guibutton)
-    {
+	{
 		if(guibutton.id == 0x1)
 		{
 			this.mc.displayGuiScreen(new GuiLoadModel());
@@ -196,19 +217,19 @@ public class GuiSkinEditor extends GuiScreen
 			SaveFileChooser fc = new SaveFileChooser(this.skin);
 			SwingUtilities.invokeLater(fc);
 		}
-		
+
 		if(guibutton.id == 0x10)
 		{
 			this.BIColor = 0xFFFFFFFF;
 		}
-		
+
 		if(guibutton.id == 0x11)
 		{
 			ColorChooser cc = new ColorChooser();
 			SwingUtilities.invokeLater(cc);
 		}
-		
-		
+
+
 		if(guibutton.equals(toolBar[0]))
 		{
 			this.BIColor = this.tempColor;
@@ -233,7 +254,7 @@ public class GuiSkinEditor extends GuiScreen
 				if(!toolBar[i].enabled)
 					toolBar[i].enabled = true;			
 			guibutton.enabled = false;
-			
+
 			this.tempColor = this.BIColor;
 			this.BIColor = 0xFFFFFFFF;
 		}
@@ -248,49 +269,49 @@ public class GuiSkinEditor extends GuiScreen
 			this.tempColor = this.BIColor;
 			this.BIColor = 0xFFFFFFFF;
 		}
-    }
-	
+	}
+
 	public void opacity()
 	{
 		boolean flag = GetMousePos().x > 4 && GetMousePos().x < (this.width/2) 
 				&& GetMousePos().y > this.height/2 && GetMousePos().y <  this.height-4;
-		if(flag & Mouse.isButtonDown(0))
-		{
-			float[] color = new float[5];
-			int couleur = GetPixelColor();
-			color[0] = ((couleur >> 24) & 0xFF)+1;
-			color[1] = ((couleur >> 16) & 0x00FF)+1;
-			color[2] = ((couleur >> 8) & 0x0000FF)+1;
-			color[3] = (couleur & 0x00FF)+1;
-			color[4] = (((color[1]/256)+(color[2]/256)+(color[3]/256))/3)*100;
-			System.out.println(color[0] + " " + color[1] + " " + color[2] + " " + color[3] + " " + color[4]);
-			this.skin.setRGB((int)((GetMousePos().x-4)/((this.width/2F-4F)/(float)this.skin.getWidth())), (int)((GetMousePos().y-this.height/2F)/(((this.height-4)-this.height/2F)/(float)this.skin.getHeight())),
-					(int)color[0]<<24 | (int)color[1]<<16 | (int)color[2]<<8 | (int)color[3]);
-			
-		}
+				if(flag & Mouse.isButtonDown(0))
+				{
+					float[] color = new float[5];
+					int couleur = GetPixelColor();
+					color[0] = ((couleur >> 24) & 0xFF)+1;
+					color[1] = ((couleur >> 16) & 0x00FF)+1;
+					color[2] = ((couleur >> 8) & 0x0000FF)+1;
+					color[3] = (couleur & 0x00FF)+1;
+					color[4] = (((color[1]/256)+(color[2]/256)+(color[3]/256))/3)*100;
+					System.out.println(color[0] + " " + color[1] + " " + color[2] + " " + color[3] + " " + color[4]);
+					this.skin.setRGB((int)((GetMousePos().x-4)/((this.width/2F-4F)/(float)this.skin.getWidth())), (int)((GetMousePos().y-this.height/2F)/(((this.height-4)-this.height/2F)/(float)this.skin.getHeight())),
+							(int)color[0]<<24 | (int)color[1]<<16 | (int)color[2]<<8 | (int)color[3]);
+
+				}
 	}
-	
+
 	public BufferedImage EditImage(BufferedImage bi)
 	{
 		boolean flag = GetMousePos().x > 4 && GetMousePos().x < (this.width/2) 
 				&& GetMousePos().y > this.height/2 && GetMousePos().y <  this.height-4;
-		if(flag)
-			if(Mouse.isButtonDown(0))
-					bi.setRGB((int)((GetMousePos().x-4)/((this.width/2F-4F)/(float)bi.getWidth())), (int)((GetMousePos().y-this.height/2F)/(((this.height-4)-this.height/2F)/(float)bi.getHeight())), this.BIColor);
+				if(flag)
+					if(Mouse.isButtonDown(0))
+						bi.setRGB((int)((GetMousePos().x-4)/((this.width/2F-4F)/(float)bi.getWidth())), (int)((GetMousePos().y-this.height/2F)/(((this.height-4)-this.height/2F)/(float)bi.getHeight())), this.BIColor);
 
-		return bi;
+				return bi;
 	}
 
 	public int GetPixelColor()
 	{
 		boolean flag = GetMousePos().x > 4 && GetMousePos().x < (this.width/2) 
 				&& GetMousePos().y > this.height/2 && GetMousePos().y <  this.height-4;
-		if(flag)
-			if(Mouse.isButtonDown(0))
-				return this.skin.getRGB((int)((GetMousePos().x-4)/((this.width/2F-4F)/(float)skin.getWidth())), (int)((GetMousePos().y-this.height/2F)/(((this.height-4)-this.height/2F)/(float)skin.getHeight())));
-		return this.BIColor;
+				if(flag)
+					if(Mouse.isButtonDown(0))
+						return this.skin.getRGB((int)((GetMousePos().x-4)/((this.width/2F-4F)/(float)skin.getWidth())), (int)((GetMousePos().y-this.height/2F)/(((this.height-4)-this.height/2F)/(float)skin.getHeight())));
+				return this.BIColor;
 	}
-	
+
 	public int GetTexture()
 	{		
 		ib.clear();

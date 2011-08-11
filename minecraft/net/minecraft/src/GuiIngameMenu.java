@@ -1,6 +1,12 @@
+/** FILE GuiInGameMenu **/
 package net.minecraft.src;
 
 import java.util.List;
+
+import Tsukeyithan.Gui.GuiLoadModel;
+import Tsukeyithan.Gui.GuiSkinEditor;
+import Tsukeyithan.Manager.TKHConfig;
+import Tsukeyithan.Manager.TKHPlayerManager;
 import net.minecraft.client.Minecraft;
 
 public class GuiIngameMenu extends GuiScreen
@@ -19,6 +25,7 @@ public class GuiIngameMenu extends GuiScreen
 
     /**
      * Adds the buttons (and other controls) to the screen in question.
+     * MODIF GuiInGameMenu: initGui()
      */
     public void initGui()
     {
@@ -35,14 +42,27 @@ public class GuiIngameMenu extends GuiScreen
         controlList.add(new GuiButton(4, width / 2 - 100, height / 4 + 24 + byte0, StatCollector.translateToLocal("menu.returnToGame")));
         controlList.add(new GuiButton(0, width / 2 - 100, height / 4 + 96 + byte0, StatCollector.translateToLocal("menu.options")));
         controlList.add(new GuiButton(5, width / 2 - 100, height / 4 + 48 + byte0, 98, 20, StatCollector.translateToLocal("gui.achievements")));
-        controlList.add(new GuiButton(6, width / 2 + 2, height / 4 + 48 + byte0, 98, 20, StatCollector.translateToLocal("gui.stats")));
+        controlList.add(new GuiButton(6, width / 2 + 2, height / 4 + 48 + byte0, 98, 20, StatCollector.translateToLocal("gui.stats")));		
+		controlList.add(new GuiButton(667, width / 2 - 100,  48, 99, 20, StatCollector.translateToLocal("menu.mods")));
+		controlList.add(new GuiButton(666, width / 2 ,  48, 99, 20, StatCollector.translateToLocal("tkh.menu.skinedit")));
     }
 
     /**
      * Fired when a control is clicked. This is the equivalent of ActionListener.actionPerformed(ActionEvent e).
+     * MODIF GuiInGameMenu: actionPerformed(GuiButton par1GuiButton)
      */
     protected void actionPerformed(GuiButton par1GuiButton)
     {
+    	if (par1GuiButton.id == 666 && TKHPlayerManager.GetPlayerProp("modo") && TKHPlayerManager.GetPlayerProp("admin"))
+		{
+			mc.displayGuiScreen(new GuiSkinEditor(this.mc.thePlayer));
+		}
+    	
+    	if (par1GuiButton.id == 667)
+		{
+			mc.displayGuiScreen(new GuiTexturePacks(this));
+		}
+
         switch (par1GuiButton.id)
         {
             case 2:

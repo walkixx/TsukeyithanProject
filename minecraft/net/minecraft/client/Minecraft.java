@@ -1361,6 +1361,7 @@ public abstract class Minecraft implements Runnable
     /**
      * Called whenever the mouse is clicked. Button clicked is 0 for left clicking and 1 for right clicking. Args:
      * buttonClicked
+     * TAG Click sur un Block
      */
     private void clickMouse(int par1)
     {

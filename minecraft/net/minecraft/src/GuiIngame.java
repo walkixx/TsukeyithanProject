@@ -96,15 +96,11 @@ public class GuiIngame extends Gui
 		{
 			//Inventaire
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			GL11.glBindTexture(GL11.GL_TEXTURE_2D, mc.renderEngine.getTexture("/gui/gui.png"));
 			InventoryPlayer inventoryplayer = mc.thePlayer.inventory;
-			zLevel = -90F;
-			//drawTexturedModalRect(i / 2 - 91, j - 22, 0, 0, 182, 22);
-			//drawTexturedModalRect((i / 2 - 91 - 1) + inventoryplayer.currentItem * 20, j - 22 - 1, 0, 22, 24, 22);
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, mc.renderEngine.getTexture("/gui/icons.png"));
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_ONE_MINUS_DST_COLOR, GL11.GL_ONE_MINUS_SRC_COLOR);
-			//drawTexturedModalRect(i / 2 - 7, j / 2 - 7, 0, 0, 16, 16);
+			drawTexturedModalRect(i / 2 - 7, j / 2 - 7, 0, 0, 16, 16);
 			GL11.glDisable(GL11.GL_BLEND);
 			boolean flag = (mc.thePlayer.heartsLife / 3) % 2 == 1;
 
@@ -131,8 +127,8 @@ public class GuiIngame extends Gui
 			
 			renderBossHealth();
 			if (mc.playerController.shouldDrawHUD())
-			{/*
-				int j5 = i / 2 - 91;
+			{
+				/*int j5 = i / 2 - 91;
 				int i6 = i / 2 + 91;
 				int l6 = mc.thePlayer.xpBarCap();
 
@@ -147,16 +143,6 @@ public class GuiIngame extends Gui
 					{
 						drawTexturedModalRect(j5, i9, 0, 69, j8, 5);
 					}
-				}
-
-				int k7 = j - 39;
-				int k8 = k7 - 10;
-				int j9 = mc.thePlayer.getTotalArmorValue()*2;
-				int i10 = -1;
-
-				if (mc.thePlayer.isPotionActive(Potion.regeneration))
-				{
-					i10 = updateCounter % 25;
 				}*/
 				
 				GL11.glEnable(GL11.GL_LINE_SMOOTH | GL11.GL_BLEND) ;

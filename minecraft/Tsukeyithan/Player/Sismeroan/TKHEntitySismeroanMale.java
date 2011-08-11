@@ -38,6 +38,7 @@ public class TKHEntitySismeroanMale extends EntityPlayerSP
         this.foodStats.setFoodLevel(40);
         speedOnGround = 0.1F*0.7F;
         speedInAir = 0.02F*0.7F;
+        addSkillEffect(new TKHSkillEffect(TKHSkill.isSismeroan.skillID, -1, 0));
         //aaddSkillEffect(new TKHSkillEffect(TKHSkill.climb.skillID, -1, 0));
         addSkillEffect(new TKHSkillEffect(TKHSkill.decFallDmg.skillID, -1, 0));
         addSkillEffect(new TKHSkillEffect(TKHSkill.silkTouch.skillID, -1, 0));
@@ -48,12 +49,8 @@ public class TKHEntitySismeroanMale extends EntityPlayerSP
 	
 	public void onUpdate() {
 		super.onUpdate();
-        System.out.println(this.boundingBox.maxY-this.boundingBox.minY);
-		/*if(isSneaking())
-			this.boundingBox.maxY = this.boundingBox.minY+1.9;
-		else 
-			this.boundingBox.maxY = this.boundingBox.minY+2+(2*0.166666);*/
-		
+		this.boundingBox.maxX = this.boundingBox.minX+1F;
+		System.out.println(this.boundingBox.maxX);
 		if (this.mc.gameSettings.keyBindFPower.isPressed() && powerCD == this.maxPowerCD) {
 			addSkillEffect(new TKHSkillEffect(TKHSkill.stun.skillID, 200, 0));
 			addSkillEffect(new TKHSkillEffect(TKHSkill.invisibility.skillID, 200, 0));
@@ -66,17 +63,11 @@ public class TKHEntitySismeroanMale extends EntityPlayerSP
 			else
 				addSkillEffect(new TKHSkillEffect(TKHSkill.nightvision.skillID, -1, 0));
 		}
-
-
-        if (movementInput.sneak && ySize < 0.2F || this.worldObj.getBlockMaterial((int)this.posX-1, (int)this.posY+1, (int)this.posZ-1).isSolid())
-        {
-            ySize = 0.2F;
-        }
 	}
 	
 	public boolean isSneaking()
     {    	
-        return (movementInput.sneak && !sleeping) || (this.worldObj.getBlockMaterial((int)this.posX-1, (int)this.posY+1, (int)this.posZ-1).isSolid());
+        return movementInput.sneak && !sleeping;
     }
 	
 	public int getMaxHealth()
