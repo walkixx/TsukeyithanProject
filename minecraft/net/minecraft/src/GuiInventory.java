@@ -1,12 +1,10 @@
 /** FILE GuiInventory **/
-/** Fichier modifié par chaipokoi **/
 package net.minecraft.src;
 
 import java.util.*;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-import Tsukeyithan.Gui.GuiTools;
 
 public class GuiInventory extends GuiContainer
 {
@@ -201,7 +199,4 @@ public class GuiInventory extends GuiContainer
             j += l;
         }
     }
-
-
-
 }

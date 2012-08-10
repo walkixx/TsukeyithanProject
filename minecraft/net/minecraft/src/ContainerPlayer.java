@@ -1,12 +1,15 @@
 /** FILE ContainerPlayer **/
+<<<<<<< HEAD
 /** Fichier modifié ar chaipokoi**/
 /** Notes:
  * Mesures utiles pour plus tard:
  * 32px minecraft = 65px réels (largeur)
  * 46px minecraft = 93px réels (hauteur)
 **/ 
+=======
+>>>>>>> 78e15ff0df945690942710b7c66ef3ed93f2b750
 package net.minecraft.src;
-import Tsukeyithan.Gui.GuiTools;
+
 import java.util.List;
 
 public class ContainerPlayer extends Container
@@ -41,6 +44,7 @@ public class ContainerPlayer extends Container
         
 	//affichage des slots d'équipement 
 
+<<<<<<< HEAD
             addSlot(new SlotArmor(this, par1InventoryPlayer, par1InventoryPlayer.getSizeInventory() - 1 - 0, getCustomXPos(102), getCustomXPos(-41) , 0));
 			addSlot(new SlotArmor(this, par1InventoryPlayer, par1InventoryPlayer.getSizeInventory() - 1 - 1, getCustomXPos(139), getCustomXPos(-34) , 1));
 			addSlot(new SlotArmor(this, par1InventoryPlayer, par1InventoryPlayer.getSizeInventory() - 1 - 2, getCustomXPos(185), getCustomXPos(-34) , 2));
@@ -79,6 +83,20 @@ public class ContainerPlayer extends Container
 		addSlot(new Slot(par1InventoryPlayer, 5,getCustomXPos(305), getCustomYPos(167)+1));
 		addSlot(new Slot(par1InventoryPlayer, 6,getCustomXPos(328)+1, getCustomYPos(124)));
 		addSlot(new Slot(par1InventoryPlayer, 7,getCustomXPos(347), getCustomYPos(80)+1));
+=======
+        for (int k = 0; k < 3; k++)
+        {
+            for (int k1 = 0; k1 < 8; k1++)
+            {
+                addSlot(new Slot(par1InventoryPlayer, k1 + (k + 1) * 9, 8 + k1 * 18, 84 + k * 18));
+            }
+        }
+
+        for (int l = 0; l < 8; l++)
+        {
+            addSlot(new Slot(par1InventoryPlayer, l, 8 + l * 18, 142));
+        }
+>>>>>>> 78e15ff0df945690942710b7c66ef3ed93f2b750
 
         onCraftMatrixChanged(craftMatrix);
     }
