@@ -1,9 +1,10 @@
 /** FILE ContainerPlayer **/
 /** Fichier modifié ar chaipokoi**/
 /** Notes:
-	ration de réduction : 
-		largeur:283/1280
-		hauteur:53/240**/ 
+ * Mesures utiles pour plus tard:
+ * 32px minecraft = 65px réels (largeur)
+ * 46px minecraft = 93px réels (hauteur)
+**/ 
 package net.minecraft.src;
 import Tsukeyithan.Gui.GuiTools;
 import java.util.List;
@@ -30,50 +31,75 @@ public class ContainerPlayer extends Container
         craftResult = new InventoryCraftResult();
         isLocalWorld = false;
         isLocalWorld = par2;
-        addSlot(new SlotCrafting(par1InventoryPlayer.player, craftMatrix, craftResult, 0, 144, 36));
 
-        for (int i = 0; i < 2; i++)
-        {
-            for (int i1 = 0; i1 < 2; i1++)
-            {
-                addSlot(new Slot(craftMatrix, i1 + i * 2, 88 + i1 * 18, 26 + i * 18));
-            }
-        }
+     //affichage des slots de crafting
+        addSlot(new SlotCrafting(par1InventoryPlayer.player, craftMatrix, craftResult, 0, getCustomXPos(212),getCustomYPos(52)));
+        addSlot(new Slot(craftMatrix, 0,getCustomXPos(118) ,getCustomYPos(33) ));
+        addSlot(new Slot(craftMatrix, 1,getCustomXPos(153) ,getCustomYPos(33) ));
+        addSlot(new Slot(craftMatrix, 2,getCustomXPos(118) ,getCustomYPos(68) ));
+        addSlot(new Slot(craftMatrix, 3,getCustomXPos(153) ,getCustomYPos(68) ));
+        
+	//affichage des slots d'équipement 
 
-        for (int j = 0; j < 4; j++)
-        {
-            int j1 = j;
-            addSlot(new SlotArmor(this, par1InventoryPlayer, par1InventoryPlayer.getSizeInventory() - 1 - j, 8, 8 + j * 18, j1));
-        }
-
+            addSlot(new SlotArmor(this, par1InventoryPlayer, par1InventoryPlayer.getSizeInventory() - 1 - 0, getCustomXPos(102), getCustomXPos(-41) , 0));
+			addSlot(new SlotArmor(this, par1InventoryPlayer, par1InventoryPlayer.getSizeInventory() - 1 - 1, getCustomXPos(139), getCustomXPos(-34) , 1));
+			addSlot(new SlotArmor(this, par1InventoryPlayer, par1InventoryPlayer.getSizeInventory() - 1 - 2, getCustomXPos(185), getCustomXPos(-34) , 2));
+			addSlot(new SlotArmor(this, par1InventoryPlayer, par1InventoryPlayer.getSizeInventory() - 1 - 3, getCustomXPos(223), getCustomXPos(-41) , 3));
 
 	//affichage des slots de l'inventaire
 		//première ligne 
-		float ratioX=GuiTools.getXSizeInventory()/2560F;
-		float ratioY=GuiTools.getYSizeInventory()/1440F;
-		int xSlot;
-		int ySlot;
 		for(int k=0;k<6;k++)
 		{
-			xSlot=(1061 + k *(53+25));
-			ySlot=606;
-			xSlot=(int)(xSlot*ratioX);
-			ySlot=(int)(ySlot*ratioY);
-			System.out.println("xSlot:"+ratioX+" ySlot:"+ratioY);
-			addSlot(new Slot(par1InventoryPlayer, k+9,xSlot, ySlot));
+			addSlot(new Slot(par1InventoryPlayer, k+8,37+k*17, 56));
 		}
+		//seconde ligne 
+		for(int k1=0;k1<5;k1++)
+		{
+			addSlot(new Slot(par1InventoryPlayer, k1+14,(getCustomXPos(91)+2)+k1*17, getCustomYPos(145)+1));
+		}
+		//troisème ligne 
+		for(int k2=0;k2<4;k2++)
+		{
+			addSlot(new Slot(par1InventoryPlayer, k2+19,(getCustomXPos(109)+1)+k2*17, getCustomYPos(180)+1));
+		}
+		//dernière ligne 
+		for(int k3=0;k3<3;k3++)
+		{
+			addSlot(new Slot(par1InventoryPlayer, k3+23,getCustomXPos(126)+k3*17, getCustomYPos(216)+1));
+		}
+		
+		//ajout des slots main gauche
+		addSlot(new Slot(par1InventoryPlayer, 0,getCustomXPos(15)-18, getCustomYPos(80)));
+		addSlot(new Slot(par1InventoryPlayer, 1,getCustomXPos(31)-18, getCustomYPos(123)+1));
+		addSlot(new Slot(par1InventoryPlayer, 2,getCustomXPos(20), getCustomYPos(167)+1));
+		addSlot(new Slot(par1InventoryPlayer, 3,getCustomXPos(47), getCustomYPos(205)+1));
 
-
-
-
-
-        for (int l = 0; l < 8; l++)
-        {
-            addSlot(new Slot(par1InventoryPlayer, l, 8 + l * 18, 142));
-        }
+		//ajout des slots main droite
+		addSlot(new Slot(par1InventoryPlayer, 4,getCustomXPos(277), getCustomYPos(205)+1));
+		addSlot(new Slot(par1InventoryPlayer, 5,getCustomXPos(305), getCustomYPos(167)+1));
+		addSlot(new Slot(par1InventoryPlayer, 6,getCustomXPos(328)+1, getCustomYPos(124)));
+		addSlot(new Slot(par1InventoryPlayer, 7,getCustomXPos(347), getCustomYPos(80)+1));
 
         onCraftMatrixChanged(craftMatrix);
     }
+    
+    /**
+     * return the Gui x Pos for a real pixel x Pos
+     */
+    private int getCustomXPos(int value)
+    {
+		return (int)(32*value/65);
+	}
+	
+    /**
+     * return the Gui y Pos for a real pixel y Pos
+     */
+    private int getCustomYPos(int value)
+    {
+		return (int)(46*value/93);
+	}
+    
+    
 
     /**
      * Callback for when the crafting matrix is changed.

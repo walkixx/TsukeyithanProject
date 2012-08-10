@@ -66,7 +66,9 @@ public class GuiInventory extends GuiContainer
      */
     protected void drawGuiContainerForegroundLayer()
     {
+	/**
         fontRenderer.drawString(StatCollector.translateToLocal("container.crafting"), 86, 16, 0x404040);
+	**/
     }
 
     /**
@@ -77,8 +79,6 @@ public class GuiInventory extends GuiContainer
         super.drawScreen(par1, par2, par3);
         xSize_lo = par1;
         ySize_lo = par2;
-	GuiTools.setXSizeInventory(par1);
-	GuiTools.setYSizeInventory(par2);
     }
 
     /**
@@ -94,6 +94,7 @@ public class GuiInventory extends GuiContainer
         int k = guiTop;
         DrawTexturedRect(this.width/2-566/2, this.height/2-318/2, 566, 318);
         // joueur 3D
+	/**
         displayDebuffEffects();
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
@@ -124,6 +125,7 @@ public class GuiInventory extends GuiContainer
         GL11.glPopMatrix();
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+	**/
     }
 
     /**
