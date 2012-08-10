@@ -170,7 +170,6 @@ public class GuiIngame extends Gui
 				drawTexturedModalRect(i/2-220/2, j-7.5F, 0,43, 220*this.mc.thePlayer.experience,5);
 				fontrenderer.drawString(String.valueOf(this.mc.thePlayer.experienceLevel), i/2-127, j-9, 0xFF000000);
 				fontrenderer.drawString(String.valueOf(this.mc.thePlayer.experienceLevel+1), i/2+123, j-9, 0xFF000000);
-				System.out.println(this.mc.thePlayer.powerCD);
 				
 				/** COOLDOWN BAR **/
 				GL11.glColor4f(1F, 1F, 1F, 1F);	
