@@ -196,6 +196,7 @@ public abstract class EntityLiving extends Entity {
 	/** How long to keep a specific target entity */
 	protected int numTicksToChaseTarget;
 	public int persistentId;
+	
 
 	public EntityLiving(World par1World) {
 		super(par1World);
@@ -1025,6 +1026,7 @@ public abstract class EntityLiving extends Entity {
 	 */
 	public void onDeath(DamageSource par1DamageSource) {
 		Entity entity = par1DamageSource.getEntity();
+		murderer=(EntityLiving)entity;
 
 		if (scoreValue >= 0 && entity != null) {
 			entity.addToPlayerScore(this, scoreValue);

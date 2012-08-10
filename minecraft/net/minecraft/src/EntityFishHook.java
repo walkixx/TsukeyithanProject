@@ -1,7 +1,11 @@
+/** Fichier modifié par chaipokoi le 10/08/2012 **/
+
+
 package net.minecraft.src;
 
 import java.util.List;
 import java.util.Random;
+import Tsukeyithan.Skill.TKHSkill;
 
 public class EntityFishHook extends Entity
 {
@@ -463,6 +467,16 @@ public class EntityFishHook extends Entity
             entityitem.motionZ = d5 * d9;
             worldObj.spawnEntityInWorld(entityitem);
             angler.addStat(StatList.fishCaughtStat, 1);
+            if(angler.isSkillActive(TKHSkill.dropMeat))
+            {
+				EntityItem entityitem2=new EntityItem(worldObj, posX, posY, posZ, new ItemStack(Item.fishRaw));
+				entityitem2.motionX=entityitem.motionX;
+				entityitem2.motionY=entityitem.motionY;
+				entityitem2.motionZ=entityitem.motionZ;
+				worldObj.spawnEntityInWorld(entityitem2);
+				angler.addStat(StatList.fishCaughtStat, 1);
+				System.out.println("skill: get additional fish");
+			}
             byte0 = 1;
         }
 

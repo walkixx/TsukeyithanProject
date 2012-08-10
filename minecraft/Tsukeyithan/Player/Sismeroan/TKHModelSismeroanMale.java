@@ -493,7 +493,7 @@ public class TKHModelSismeroanMale extends ModelBase
     //NEZ_BAS.render(f5);
     //ARRETE_NEZ.render(f5);
     
-    	/** CORP **/
+    	/** CORPS **/
     //COU.render(f5);
     //COU_2.render(f5);
     //TRAPEZE.render(f5);

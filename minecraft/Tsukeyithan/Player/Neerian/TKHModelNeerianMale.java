@@ -550,7 +550,6 @@ public class TKHModelNeerianMale extends ModelBase
     //EPINE_3.render(f5);
     //EPINE_4.render(f5);
     
-    /** Tete **/
     VISAGE.render(f5);
     //CRANE_MILIEU.render(f5);
     //CRANE_AVANT.render(f5);

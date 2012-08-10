@@ -1,5 +1,6 @@
 
 /** FILE Entity **/
+/** Fichier modifié par chaipokoi le 10/08/2012 **/
 
 package net.minecraft.src;
 
@@ -172,6 +173,9 @@ public abstract class Entity extends TKHEntityManager
     public int serverPosX;
     public int serverPosY;
     public int serverPosZ;
+    
+    /** The entity who killed this entity */
+    protected EntityLiving murderer;
 
     /**
      * Render entity even if it is outside the camera frustum. Only true in EntityFish for now. Used in RenderGlobal:
@@ -209,6 +213,7 @@ public abstract class Entity extends TKHEntityManager
         heartsLife = 0;
         firstUpdate = true;
         isImmuneToFire = false;
+        murderer=null;
         dataWatcher = new DataWatcher();
         addedToChunk = false;
         worldObj = par1World;
@@ -1470,7 +1475,19 @@ public abstract class Entity extends TKHEntityManager
     {
         EntityItem entityitem = new EntityItem(worldObj, posX, posY + (double)par2, posZ, par1ItemStack);
         entityitem.delayBeforeCanPickup = 10;
-        worldObj.spawnEntityInWorld(entityitem);
+        if(murderer != null)
+        {
+			int itemid=par1ItemStack.getItem().shiftedIndex;
+			if((murderer.isSkillActive(TKHSkill.dropMeat)) && (itemid==Item.beefCooked.shiftedIndex || itemid==Item.beefRaw.shiftedIndex || itemid==Item.porkCooked.shiftedIndex || itemid==Item.porkRaw.shiftedIndex || itemid==Item.rottenFlesh.shiftedIndex || itemid==Item.chickenCooked.shiftedIndex ||itemid==Item.chickenRaw.shiftedIndex))
+			{
+				ItemStack itemstack2=par1ItemStack.copy();
+				System.out.println("skill: get additional "+itemstack2.getItem());
+				EntityItem entityitem2 = new EntityItem(worldObj, posX, posY + (double)par2, posZ, itemstack2);
+				entityitem2.delayBeforeCanPickup = 10;
+				worldObj.spawnEntityInWorld(entityitem2);
+			}
+		}
+		worldObj.spawnEntityInWorld(entityitem);
         return entityitem;
     }
 
