@@ -38,7 +38,7 @@ import net.minecraft.src.Tessellator;
 
 public class GuiSkinEditor extends GuiScreen
 {
-	public 	ScaledResolution scaledresolution;
+	public ScaledResolution scaledresolution;
 	public Vector3f rotModel;
 	public ModelBase model;
 	public float motionSensitivity;
@@ -73,6 +73,7 @@ public class GuiSkinEditor extends GuiScreen
 		this.controlList.clear();
 		this.scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
 		try {
+			System.out.println("SkinUrl:"+skinUrl);
 			skin = ImageIO.read(this.mc.texturePackList.selectedTexturePack.getResourceAsStream(skinUrl));
 		} catch (IOException e) {	e.printStackTrace();	}
 		DrawMenuBar();

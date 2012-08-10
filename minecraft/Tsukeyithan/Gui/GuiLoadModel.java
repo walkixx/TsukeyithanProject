@@ -88,6 +88,7 @@ public class GuiLoadModel extends GuiScreen {
 						word += ligne.charAt(i);
 				}
 				renderToSkin.put(render, word);
+				System.out.println(word);
 			}
 		} 
 		catch (Exception e) 

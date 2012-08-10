@@ -170,7 +170,7 @@ public class GuiMainMenu extends GuiScreen
 	protected void actionPerformed(GuiButton par1GuiButton)
 	{
 		try{
-			if (par1GuiButton.id == 6 && TKHPlayerManager.player.containsKey(this.mc.session.username) && (TKHPlayerManager.player.get(TKHConfig.mc.session.username).containsKey("admin") || TKHPlayerManager.player.get(TKHConfig.mc.session.username).containsKey("modo")))
+			if (par1GuiButton.id == 6)
 			{
 				mc.displayGuiScreen(new GuiLoadModel());
 			}

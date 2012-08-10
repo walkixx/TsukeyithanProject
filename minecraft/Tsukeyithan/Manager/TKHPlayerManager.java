@@ -138,7 +138,8 @@ public class TKHPlayerManager
 			}
 		}
 		
-		return new TKHEntityHuman(mc, par1World, session, worldType);
+		//return new TKHEntityHuman(mc, par1World, session, worldType); (test de collision)
+		return new TKHEntitySismeroanMale(mc, par1World, session, worldType);
 	}
 	
 	public static void UpdatePlayer()

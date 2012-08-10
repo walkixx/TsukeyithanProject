@@ -48,11 +48,15 @@ public class TKHEntitySismeroanMale extends EntityPlayerSP
 	
 	public void onUpdate() {
 		super.onUpdate();
-        //System.out.println(this.boundingBox.maxY-this.boundingBox.minY);
-		/*if(isSneaking())
+        System.out.println(this.boundingBox.maxY-this.boundingBox.minY);
+		if(isSneaking())
+		{
 			this.boundingBox.maxY = this.boundingBox.minY+1.9;
-		else 
-			this.boundingBox.maxY = this.boundingBox.minY+2+(2*0.166666);*/
+		}
+		else
+		{
+			this.boundingBox.maxY = this.boundingBox.minY+2+(2*0.166666);
+		}
 		
 		if (this.mc.gameSettings.keyBindFPower.isPressed() && powerCD == this.maxPowerCD) {
 			addSkillEffect(new TKHSkillEffect(TKHSkill.stun.skillID, 200, 0));

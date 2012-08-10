@@ -656,7 +656,6 @@ public abstract class EntityLiving extends Entity {
 	 */
 	public void onUpdate() {
 		super.onUpdate();
-		
 		if(this.isCollidedHorizontally && isSkillActive(TKHSkill.climb))
 		{
 			this.motionY = 0.4F;
