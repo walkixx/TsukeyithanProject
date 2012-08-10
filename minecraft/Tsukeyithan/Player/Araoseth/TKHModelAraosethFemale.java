@@ -425,11 +425,7 @@ public class TKHModelAraosethFemale extends ModelBase
     super.render(entity, f, f1, f2, f3, f4, f5);
     setRotationAngles(f, f1, f2, f3, f4, f5);
     
-<<<<<<< HEAD
     	/** Tete **/
-=======
-    	/** Tête **/
->>>>>>> dbcc2f805d0ffc25e33fd95cea9ada7ee16de637
     //MASQUE.render(f5);
     FACE.render(f5);
     //CRANE_HAUT.render(f5);

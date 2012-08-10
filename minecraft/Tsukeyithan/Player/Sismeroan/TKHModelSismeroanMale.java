@@ -74,7 +74,7 @@ public class TKHModelSismeroanMale extends ModelBase
       
     
     		
-    		/** TÊTE **/
+    		/** TeTE **/
       CRANE_ARRIERE_BAS1 = new TKHModelRenderer(this, 120, 53);
       CRANE_ARRIERE_BAS1.addBox(1.5F, -5F, 0F, 2, 5, 2);
       CRANE_ARRIERE_BAS1.setRotationPoint(0F, -13F, -2F);
@@ -479,7 +479,7 @@ public class TKHModelSismeroanMale extends ModelBase
     super.render(entity, f, f1, f2, f3, f4, f5);
     setRotationAngles(f, f1, f2, f3, f4, f5);
     
-    	/** TÊTE **/
+    	/** TeTE **/
     //CRANE_ARRIERE_BAS1.render(f5);
     //CRANE_ARRIERE_BAS2.render(f5);
     OS_CRANE.render(f5);

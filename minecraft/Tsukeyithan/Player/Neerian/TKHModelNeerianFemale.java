@@ -95,7 +95,7 @@ public class TKHModelNeerianFemale extends ModelBase
 		SEIN_DROIT.mirror = true;
 		setRotation(SEIN_DROIT, -0.2959912F, 0F, 0.074351F);
 
-		/** Corp **/
+		/** Corps **/
 
 		THORAX = new TKHModelRenderer(this, 64, 31);
 		THORAX.addBox(-4F, 0F, -2F, 8, 6, 4);
@@ -202,7 +202,7 @@ public class TKHModelNeerianFemale extends ModelBase
 
 
 
-		/** Tête **/
+		/** Tete **/
 
 
 		VISAGE = new TKHModelRenderer(this, 91, 0);
@@ -571,7 +571,7 @@ public class TKHModelNeerianFemale extends ModelBase
 		//SEIN_GAUCHE.render(f5);
 		//SEIN_DROIT.render(f5);
 
-		/** Corp **/
+		/** Corps **/
 		//COU.render(f5);
 		THORAX.render(f5);
 		//PECTORAUX.render(f5);
@@ -583,7 +583,7 @@ public class TKHModelNeerianFemale extends ModelBase
 		//EPINE_3.render(f5);
 		//EPINE_4.render(f5);
 
-		/** Tête **/
+		/** Tete **/
 		VISAGE.render(f5);
 		//CRANE_MILIEU.render(f5);
 		//CRANE_AVANT.render(f5);

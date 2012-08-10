@@ -191,7 +191,7 @@ public class TKHModelVuurkhenFemale extends ModelBase
         setRotation(COU, 0.3717881F, 0F, 0F);
         
         
-        	/** CORP **/
+        	/** CORPs **/
         THORAX = new TKHModelRenderer(this, 56, 35);
         THORAX.addBox(-4F, 0F, -2F, 8, 8, 5);
         THORAX.setRotationPoint(0F, -7F, 0F);
