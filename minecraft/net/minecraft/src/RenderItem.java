@@ -179,16 +179,15 @@ public class RenderItem extends Render
     }
     /**
      * MODIF RenderItem: public void drawItemIntoGui(FontRenderer par1FontRenderer, RenderEngine par2RenderEngine, int par3, int par4, int par5, float par6, float par7)
-     */
+     */     
     public void drawItemIntoGui(FontRenderer par1FontRenderer, RenderEngine par2RenderEngine, int par3, int par4, int par5, float par6, float par7, int par8)
     {
         if (par3 < 256 && RenderBlocks.renderItemIn3d(Block.blocksList[par3].getRenderType()))
         {
-            int i = par3;    
-        	InventoryPlayer inventoryplayer = TKHConfig.mc.thePlayer.inventory;
+            int i = par3;
             par2RenderEngine.bindTexture(par2RenderEngine.getTexture("/terrain.png"));
             Block block = Block.blocksList[i];
-            GL11.glPushMatrix();  
+            GL11.glPushMatrix();
             GL11.glTranslatef(par6 - 2, par7 + 3, -3F + zLevel);
         	GL11.glScalef(8.75F, 8.75F, 8.75F);
             GL11.glTranslatef(1.0F, 0.5F, 1.0F);
@@ -199,17 +198,16 @@ public class RenderItem extends Render
             float f2 = (float)(i1 >> 16 & 0xff) / 255F;
             float f5 = (float)(i1 >> 8 & 0xff) / 255F;
             float f7 = (float)(i1 & 0xff) / 255F;
+
             if (field_27004_a)
             {
-            	 if(inventoryplayer.currentItem == par8)
-            		GL11.glColor4f(f2+25, f5+25, f7+25, 1F);
-            	 else
-             		GL11.glColor4f(f2, f5, f7, 1F);
-            }            	
+                GL11.glColor4f(f2, f5, f7, 1.0F);
+            }
+
             GL11.glRotatef(-90F, 0.0F, 1.0F, 0.0F);
             renderBlocks.useInventoryTint = field_27004_a;
             renderBlocks.renderBlockAsItem(block, par4, 1.0F);
-            renderBlocks.useInventoryTint = true; 
+            renderBlocks.useInventoryTint = true;
             GL11.glPopMatrix();
         }
         else if (Item.itemsList[par3].func_46058_c())
@@ -238,6 +236,7 @@ public class RenderItem extends Render
         else if (par5 >= 0)
         {
             GL11.glDisable(GL11.GL_LIGHTING);
+            GL11.glPushMatrix();
 
             if (par3 < 256)
             {
@@ -257,15 +256,32 @@ public class RenderItem extends Render
             {
                 GL11.glColor4f(f, f1, f4, 1.0F);
             }
-
-            renderTexturedQuad(par6, par7, (par5 % 16) * 16, (par5 / 16) * 16, 16, 16);
-            GL11.glEnable(GL11.GL_LIGHTING);
+            GL11.glScalef(0.975F, 0.975F, 1);
+            GL11.glTranslatef(3F, 10F, 0F);
+            if(par8 == 0)
+            	renderTexturedQuad(par6, par7+1, (par5 % 16) * 16, (par5 / 16) * 16, 16, 16);
+            else if(par8 == 1)
+            	renderTexturedQuad(par6, par7+1, (par5 % 16) * 16, (par5 / 16) * 16, 16, 16);
+            else if(par8 == 2)
+            	renderTexturedQuad(par6, par7+1, (par5 % 16) * 16, (par5 / 16) * 16, 16, 16);
+            else if(par8 == 3)
+            	renderTexturedQuad(par6+1, par7+1, (par5 % 16) * 16, (par5 / 16) * 16, 16, 16);
+            else if(par8 == 4)
+            	renderTexturedQuad(par6+4, par7+1, (par5 % 16) * 16, (par5 / 16) * 16, 16, 16);
+            else if(par8 == 5)
+            	renderTexturedQuad(par6+4, par7+1, (par5 % 16) * 16, (par5 / 16) * 16, 16, 16);
+            else if(par8 == 6)
+            	renderTexturedQuad(par6+5, par7+1, (par5 % 16) * 16, (par5 / 16) * 16, 16, 16);
+            else if(par8 == 7)
+            	renderTexturedQuad(par6+6, par7+1, (par5 % 16) * 16, (par5 / 16) * 16, 16, 16);
+            else	
+            	renderTexturedQuad(par6, par7, (par5 % 16) * 16, (par5 / 16) * 16, 16, 16);
+            GL11.glPopMatrix();
+            GL11.glEnable(GL11.GL_LIGHTING);            
         }
-
         GL11.glEnable(GL11.GL_CULL_FACE);
     }
-    
-    
+
     public void drawItemIntoGui(FontRenderer par1FontRenderer, RenderEngine par2RenderEngine, int par3, int par4, int par5, float par6, float par7)
     {
         if (par3 < 256 && RenderBlocks.renderItemIn3d(Block.blocksList[par3].getRenderType()))
@@ -322,6 +338,7 @@ public class RenderItem extends Render
         else if (par5 >= 0)
         {
             GL11.glDisable(GL11.GL_LIGHTING);
+            GL11.glPushMatrix();
 
             if (par3 < 256)
             {
@@ -341,11 +358,10 @@ public class RenderItem extends Render
             {
                 GL11.glColor4f(f, f1, f4, 1.0F);
             }
-
             renderTexturedQuad(par6, par7, (par5 % 16) * 16, (par5 / 16) * 16, 16, 16);
-            GL11.glEnable(GL11.GL_LIGHTING);
+            GL11.glPopMatrix();
+            GL11.glEnable(GL11.GL_LIGHTING);            
         }
-
         GL11.glEnable(GL11.GL_CULL_FACE);
     }
 

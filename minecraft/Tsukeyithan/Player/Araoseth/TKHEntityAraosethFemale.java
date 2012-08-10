@@ -62,15 +62,15 @@ public class TKHEntityAraosethFemale extends EntityPlayerSP
 		addSkillEffect(new TKHSkillEffect(TKHSkill.knockBack.skillID, -1, 0));
 		addSkillEffect(new TKHSkillEffect(TKHSkill.dropApple.skillID, -1, 0));
 		addSkillEffect(new TKHSkillEffect(TKHSkill.dropMush.skillID, -1, 0));
+		this.maxPowerCD = 100;
 	}
 	
 	public void onUpdate() {
 		super.onUpdate();
 
-		if (this.mc.gameSettings.keyBindFPower.isPressed() && powerCD == 0
-				&& !isSkillActive(TKHSkill.knockBack)) {
+		if (this.mc.gameSettings.keyBindFPower.isPressed() && powerCD > this.maxPowerCD) {
 			addSkillEffect(new TKHSkillEffect(TKHSkill.knockBack.skillID, -1, 0));
-			powerCD = 100;
+			this.powerCD = 1;
 		}
         
         if (this.mc.gameSettings.keyBindSPower.isPressed()) {

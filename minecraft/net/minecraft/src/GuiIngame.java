@@ -1,4 +1,5 @@
 /** FILE GuiInGame **/
+
 package net.minecraft.src;
 
 import java.awt.Color;
@@ -19,6 +20,7 @@ public class GuiIngame extends Gui
 	private Random rand;
 	private Minecraft mc;
 	private int updateCounter;
+	private byte timer;
 
 	/** The string specifying which record music is playing */
 	private String recordPlaying;
@@ -48,6 +50,7 @@ public class GuiIngame extends Gui
 		field_50018_o = false;
 		prevVignetteBrightness = 1.0F;
 		mc = par1Minecraft;
+		this.timer = 0;
 	}
 
 	/**
@@ -110,16 +113,23 @@ public class GuiIngame extends Gui
 				flag = false;
 			}
 
-			int i1 = mc.thePlayer.getHealth();
+			float i1 = mc.thePlayer.getHealth();
 			int i2 = mc.thePlayer.prevHealth;
-			int p100 = (i1/mc.thePlayer.getMaxHealth())*100;
+			float lp100 = i1/this.mc.thePlayer.getMaxHealth();
 			rand.setSeed(updateCounter * 0x4c627);
 			boolean flag2 = false;
 			FoodStats foodstats = mc.thePlayer.getFoodStats();
-			int j4 = foodstats.getFoodLevel();
+			float j4 = foodstats.getFoodLevel();
 			int l4 = foodstats.getPrevFoodLevel();
-			renderBossHealth();
+			float fp100 = j4/20F;
+			float j9 = mc.thePlayer.getTotalArmorValue()*2;
+			float ap100 = j9/40F;
+			float j10 = mc.thePlayer.getAir();
+			float rp100 = j10/300;
+			float j11 = this.mc.thePlayer.powerCD;
+			float cp100 = j11/this.mc.thePlayer.maxPowerCD;
 			
+			renderBossHealth();
 			if (mc.playerController.shouldDrawHUD())
 			{/*
 				int j5 = i / 2 - 91;
@@ -148,19 +158,62 @@ public class GuiIngame extends Gui
 				{
 					i10 = updateCounter % 25;
 				}*/
-				//FIXME New barre de vie 
+				
 				GL11.glEnable(GL11.GL_LINE_SMOOTH | GL11.GL_BLEND) ;
 				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA) ; 
 				GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);			
-				GL11.glColor4f(1.0F, 1.0F, 1.0F, 1F);
-				this.mc.renderEngine.bindTexture(this.mc.renderEngine.getTexture("/Tsukeyithan/Texture/HUDLifeBar.png"));
-				//drawTexturedModalRect(i/2-43, j/2, 43,40, 43, 40);
-				DrawTexturedRect(i/2-42/2, j-72, 43,40, 0F,0F, 1,1);
+				timer = (byte)(timer==30?0:timer+1);
+				
+				/** EXP BAR **/
+				GL11.glColor4f(1F, 1F, 1F, 1F);	
+				this.mc.renderEngine.bindTexture(this.mc.renderEngine.getTexture("/Tsukeyithan/Texture/HUDItem.png"));
+				drawTexturedModalRect(i/2-220/2, j-7.5F, 0,43, 220*this.mc.thePlayer.experience,5);
+				fontrenderer.drawString(String.valueOf(this.mc.thePlayer.experienceLevel), i/2-127, j-9, 0xFF000000);
+				fontrenderer.drawString(String.valueOf(this.mc.thePlayer.experienceLevel+1), i/2+123, j-9, 0xFF000000);
+				System.out.println(this.mc.thePlayer.powerCD);
+				
+				/** COOLDOWN BAR **/
+				GL11.glColor4f(1F, 1F, 1F, 1F);	
+				this.mc.renderEngine.bindTexture(this.mc.renderEngine.getTexture("/Tsukeyithan/Texture/HUDItem.png"));
+				drawTexturedModalRect((i/2-16/2-8.5F)+(16-16*cp100),j-16.5F, 26,33, 16*cp100,3);
+				drawTexturedModalRect((i/2-16/2+9.5F), j-16.5F, 26,33, 16*cp100,3);
+				
+				/** BUBLE BAR **/
+				GL11.glColor4f(1F, 1F, 1F, 1F);	
+				this.mc.renderEngine.bindTexture(this.mc.renderEngine.getTexture("/Tsukeyithan/Texture/HUDItem.png"));
+				drawTexturedModalRect((i/2-26/2)+(26-26*rp100), j-82, 26-26*rp100,33, 26*rp100,10);
+				
+				/** ARMOR BAR **/
+				GL11.glColor4f(1F, 1F, 1F, 1F);	
+				this.mc.renderEngine.bindTexture(this.mc.renderEngine.getTexture("/Tsukeyithan/Texture/HUDItem.png"));
+				drawTexturedModalRect(i/2-24, j-55+29-29*ap100, 64,29-29*ap100, 24, 29*ap100);
+				
+				/** HUNGER BAR **/
+				GL11.glColor4f(1F, 1F, 1F, 1F);	
+				this.mc.renderEngine.bindTexture(this.mc.renderEngine.getTexture("/Tsukeyithan/Texture/HUDItem.png"));
+				drawTexturedModalRect(i/2+2, j-55+29-29*fp100, 40,29-29*fp100, 24, 29*fp100);
+				
+				/** LIFE BAR Ratio: 3,8717948717948717948717948717949**/
+				GL11.glColor4f(1F, 1F, 1F, 1F);	
+				if(lp100<0.2F && timer > 20)
+					GL11.glColor4f(1F, 0.3F, 0.3F, 0.8F);	
+				if(mc.thePlayer.isPotionActive(Potion.poison))
+					GL11.glColor4f(0.7F, 1F, 0.7F, 1F);					
+				this.mc.renderEngine.bindTexture(this.mc.renderEngine.getTexture("/Tsukeyithan/Texture/HUDItem.png"));
+				drawTexturedModalRect(i/2-39/2, j-70+33-33*lp100, 0,33-33*lp100, 39, 33*lp100);
+				fontrenderer.drawString(String.valueOf((int)(lp100*100)), i/2-fontrenderer.getStringWidth(String.valueOf((int)(lp100*100)))/2, j-60, 0xFF000000);
+				
+				/** HUD NUDE **/
+				GL11.glColor4f(1.0F, 1.0F, 1.0F, 1F);		
 				this.mc.renderEngine.bindTexture(this.mc.renderEngine.getTexture("/Tsukeyithan/Texture/HUDNude.png"));
 				DrawTexturedRect(i/2-237/2, j-92, 237,92);
-				//ratio de: 4,5226130653266331658291457286432
-				GL11.glDisable(GL11.GL_LINE_SMOOTH| GL11.GL_BLEND);
+				
+				
+				
+				
+				GL11.glDisable(GL11.GL_LINE_SMOOTH | GL11.GL_BLEND);
 				GL11.glBindTexture(GL11.GL_TEXTURE_2D, mc.renderEngine.getTexture("/gui/icons.png"));
+				
 				/*
 				for (int j10 = 0; j10 < 20; j10++)
 				{
@@ -306,7 +359,6 @@ public class GuiIngame extends Gui
 						}*/
 					}
 				}/*
-				//FIXME Bar de Nouriture
 				for (int k10 = 0; k10 < 10; k10++)
 				{
 					int k11 = k7;

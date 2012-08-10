@@ -49,14 +49,14 @@ public class TKHEntityNeerianMale extends EntityPlayerSP {
 		addSkillEffect(new TKHSkillEffect(TKHSkill.dropCrops.skillID, -1, 0));
 		addSkillEffect(new TKHSkillEffect(TKHSkill.dropSC.skillID, -1, 0));
 		addSkillEffect(new TKHSkillEffect(TKHSkill.dropTree.skillID, -1, 0));
+		this.maxPowerCD = 600;
 	}
 
 	public void onUpdate() {
 		super.onUpdate();
-		if (this.mc.gameSettings.keyBindFPower.isPressed() && powerCD == 0
-				&& !isSkillActive(TKHSkill.poisoning)) {
+		if (this.mc.gameSettings.keyBindFPower.isPressed() && powerCD == this.maxPowerCD) {
 			addSkillEffect(new TKHSkillEffect(TKHSkill.poisoning.skillID, -1, 0));
-			powerCD = 600;
+			this.powerCD = 1;
 		}
         
         if (this.mc.gameSettings.keyBindSPower.isPressed()) {

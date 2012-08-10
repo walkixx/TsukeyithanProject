@@ -173,7 +173,7 @@ public class TKHModelNeerianMale extends ModelBase
       setLocation(EPINE_4, 0F, 0F, 0F);      
       
       
-      		/** Tete **/
+      		/** Tête **/
 
       
       VISAGE = new TKHModelRenderer(this, 91, 0);
@@ -550,6 +550,10 @@ public class TKHModelNeerianMale extends ModelBase
     //EPINE_3.render(f5);
     //EPINE_4.render(f5);
     
+<<<<<<< HEAD
+=======
+    /** Tête **/
+>>>>>>> dbcc2f805d0ffc25e33fd95cea9ada7ee16de637
     VISAGE.render(f5);
     //CRANE_MILIEU.render(f5);
     //CRANE_AVANT.render(f5);

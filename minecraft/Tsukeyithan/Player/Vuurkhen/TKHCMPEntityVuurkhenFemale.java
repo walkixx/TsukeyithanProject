@@ -39,16 +39,16 @@ public class TKHCMPEntityVuurkhenFemale extends EntityClientPlayerMP {
 		addSkillEffect(new TKHSkillEffect(TKHSkill.dropMeat.skillID, -1, 0));
 		addSkillEffect(new TKHSkillEffect(TKHSkill.doubleDamage.skillID, -1, 0));
 		addSkillEffect(new TKHSkillEffect(TKHSkill.reductExplDmg.skillID, -1, 0));
-		isImmuneToFire = true;
+		this.isImmuneToFire = true;
+		this.maxPowerCD = 600;
 	}
 	
 	public void onUpdate() {
 		super.onUpdate();
 
-		if (this.mc.gameSettings.keyBindFPower.isPressed() && powerCD == 0
-				&& !isSkillActive(TKHSkill.carbonization)) {
+		if (this.mc.gameSettings.keyBindFPower.isPressed() && powerCD == this.maxPowerCD) {
 			this.mc.getSendQueue().addToSendQueue(new Packet136AddSkillEffect(this.entityId, TKHSkill.carbonization.skillID, -1));
-			powerCD = 600;
+			this.powerCD = 1;
 		}
         
         if (this.mc.gameSettings.keyBindSPower.isPressed()) {
