@@ -1,3 +1,5 @@
+/** fichier modifie par chaipokoi le 11/08/2012 **/
+
 package net.minecraft.src;
 
 class SlotArmor extends Slot
@@ -17,6 +19,7 @@ class SlotArmor extends Slot
         super(par2IInventory, par3, par4, par5);
         parent = par1ContainerPlayer;
         armorType = par6;
+        isASlotArmor=true;
     }
 
     /**

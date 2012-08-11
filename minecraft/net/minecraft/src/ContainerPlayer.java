@@ -1,5 +1,5 @@
 /** FILE ContainerPlayer **/
-/** Fichier modifie ar chaipokoi**/
+/** Fichier modifié par chaipokoi le 11/08/2012**/
 /** Notes:
  * Mesures utiles pour plus tard:
  * 32px minecraft = 65px réels (largeur)
@@ -34,70 +34,60 @@ public class ContainerPlayer extends Container
         isLocalWorld = par2;
 
      //affichage des slots de crafting
-        addSlot(new SlotCrafting(par1InventoryPlayer.player, craftMatrix, craftResult, 0, getCustomXPos(212),getCustomYPos(52)));
-        addSlot(new Slot(craftMatrix, 0,getCustomXPos(118) ,getCustomYPos(33) ));
-        addSlot(new Slot(craftMatrix, 1,getCustomXPos(153) ,getCustomYPos(33) ));
-        addSlot(new Slot(craftMatrix, 2,getCustomXPos(118) ,getCustomYPos(68) ));
-        addSlot(new Slot(craftMatrix, 3,getCustomXPos(153) ,getCustomYPos(68) ));
+        addSlot(new SlotCrafting(par1InventoryPlayer.player, craftMatrix, craftResult, 0, getCustomXPos(220),getCustomYPos(57)));
+        addSlot(new Slot(craftMatrix, 0,getCustomXPos(125) ,getCustomYPos(40) ));
+        addSlot(new Slot(craftMatrix, 1,getCustomXPos(161) ,getCustomYPos(40) ));
+        addSlot(new Slot(craftMatrix, 2,getCustomXPos(125) ,getCustomYPos(75) ));
+        addSlot(new Slot(craftMatrix, 3,getCustomXPos(161) ,getCustomYPos(75) ));
         
 	//affichage des slots d'équipement 
 
-            addSlot(new SlotArmor(this, par1InventoryPlayer, par1InventoryPlayer.getSizeInventory() - 1 - 0, getCustomXPos(102), getCustomXPos(-41) , 0));
-			addSlot(new SlotArmor(this, par1InventoryPlayer, par1InventoryPlayer.getSizeInventory() - 1 - 1, getCustomXPos(139), getCustomXPos(-34) , 1));
-			addSlot(new SlotArmor(this, par1InventoryPlayer, par1InventoryPlayer.getSizeInventory() - 1 - 2, getCustomXPos(185), getCustomXPos(-34) , 2));
-			addSlot(new SlotArmor(this, par1InventoryPlayer, par1InventoryPlayer.getSizeInventory() - 1 - 3, getCustomXPos(223), getCustomXPos(-41) , 3));
+            addSlot(new SlotArmor(this, par1InventoryPlayer, par1InventoryPlayer.getSizeInventory() - 1 - 0, getCustomXPos(109), getCustomXPos(-39) , 0));
+			addSlot(new SlotArmor(this, par1InventoryPlayer, par1InventoryPlayer.getSizeInventory() - 1 - 1, getCustomXPos(147), getCustomXPos(-31) , 1));
+			addSlot(new SlotArmor(this, par1InventoryPlayer, par1InventoryPlayer.getSizeInventory() - 1 - 2, getCustomXPos(192), getCustomXPos(-31) , 2));
+			addSlot(new SlotArmor(this, par1InventoryPlayer, par1InventoryPlayer.getSizeInventory() - 1 - 3, getCustomXPos(232)-1, getCustomXPos(-39) , 3));
 
 	//affichage des slots de l'inventaire
 		//première ligne 
-		for(int k=0;k<6;k++)
-		{
-			addSlot(new Slot(par1InventoryPlayer, k+8,37+k*17, 56));
-		}
+		addSlot(new Slot(par1InventoryPlayer, 8,getCustomXPos(78), getCustomYPos(116)));
+		addSlot(new Slot(par1InventoryPlayer, 9,getCustomXPos(112), getCustomYPos(116)));
+		addSlot(new Slot(par1InventoryPlayer, 10,getCustomXPos(148), getCustomYPos(116)));
+		addSlot(new Slot(par1InventoryPlayer, 11,getCustomXPos(183), getCustomYPos(116)));
+		addSlot(new Slot(par1InventoryPlayer, 12,getCustomXPos(218), getCustomYPos(116)));
+		addSlot(new Slot(par1InventoryPlayer, 13,getCustomXPos(254), getCustomYPos(116)));
 		//seconde ligne 
-		for(int k1=0;k1<5;k1++)
-		{
-			addSlot(new Slot(par1InventoryPlayer, k1+14,(getCustomXPos(91)+2)+k1*17, getCustomYPos(145)+1));
-		}
+		addSlot(new Slot(par1InventoryPlayer, 14,getCustomXPos(97), getCustomYPos(152)));
+		addSlot(new Slot(par1InventoryPlayer, 15,getCustomXPos(131), getCustomYPos(152)));
+		addSlot(new Slot(par1InventoryPlayer, 16,getCustomXPos(167), getCustomYPos(152)));
+		addSlot(new Slot(par1InventoryPlayer, 17,getCustomXPos(202), getCustomYPos(152)));
+		addSlot(new Slot(par1InventoryPlayer, 18,getCustomXPos(236), getCustomYPos(152)));
 		//troisème ligne 
-		for(int k2=0;k2<4;k2++)
-		{
-			addSlot(new Slot(par1InventoryPlayer, k2+19,(getCustomXPos(109)+1)+k2*17, getCustomYPos(180)+1));
-		}
+		addSlot(new Slot(par1InventoryPlayer, 19,getCustomXPos(114), getCustomYPos(186)));
+		addSlot(new Slot(par1InventoryPlayer, 20,getCustomXPos(149), getCustomYPos(186)));
+		addSlot(new Slot(par1InventoryPlayer, 21,getCustomXPos(183), getCustomYPos(186)));
+		addSlot(new Slot(par1InventoryPlayer, 22,getCustomXPos(220), getCustomYPos(186)));
 		//dernière ligne 
-		for(int k3=0;k3<3;k3++)
-		{
-			addSlot(new Slot(par1InventoryPlayer, k3+23,getCustomXPos(126)+k3*17, getCustomYPos(216)+1));
-		}
+		addSlot(new Slot(par1InventoryPlayer, 23,getCustomXPos(132), getCustomYPos(223)));
+		addSlot(new Slot(par1InventoryPlayer, 24,getCustomXPos(167), getCustomYPos(223)));
+		addSlot(new Slot(par1InventoryPlayer, 25,getCustomXPos(203), getCustomYPos(223)));
 		
 		//ajout des slots main gauche
-		addSlot(new Slot(par1InventoryPlayer, 0,getCustomXPos(15)-18, getCustomYPos(80)));
-		addSlot(new Slot(par1InventoryPlayer, 1,getCustomXPos(31)-18, getCustomYPos(123)+1));
-		addSlot(new Slot(par1InventoryPlayer, 2,getCustomXPos(20), getCustomYPos(167)+1));
-		addSlot(new Slot(par1InventoryPlayer, 3,getCustomXPos(47), getCustomYPos(205)+1));
+		addSlot(new Slot(par1InventoryPlayer, 0,getCustomXPos(-19), getCustomYPos(84)));
+		addSlot(new Slot(par1InventoryPlayer, 1,getCustomXPos(-3), getCustomYPos(130)));
+		addSlot(new Slot(par1InventoryPlayer, 2,getCustomXPos(23), getCustomYPos(173)));
+		addSlot(new Slot(par1InventoryPlayer, 3,getCustomXPos(51), getCustomYPos(211)));
 
 		//ajout des slots main droite
-		addSlot(new Slot(par1InventoryPlayer, 4,getCustomXPos(277), getCustomYPos(205)+1));
-		addSlot(new Slot(par1InventoryPlayer, 5,getCustomXPos(305), getCustomYPos(167)+1));
-		addSlot(new Slot(par1InventoryPlayer, 6,getCustomXPos(328)+1, getCustomYPos(124)));
-		addSlot(new Slot(par1InventoryPlayer, 7,getCustomXPos(347), getCustomYPos(80)+1));
-        for (int k = 0; k < 3; k++)
-        {
-            for (int k1 = 0; k1 < 8; k1++)
-            {
-                addSlot(new Slot(par1InventoryPlayer, k1 + (k + 1) * 9, 8 + k1 * 18, 84 + k * 18));
-            }
-        }
-
-        for (int l = 0; l < 8; l++)
-        {
-            addSlot(new Slot(par1InventoryPlayer, l, 8 + l * 18, 142));
-        }
+		addSlot(new Slot(par1InventoryPlayer, 4,getCustomXPos(281), getCustomYPos(212)));
+		addSlot(new Slot(par1InventoryPlayer, 5,getCustomXPos(309), getCustomYPos(172)));
+		addSlot(new Slot(par1InventoryPlayer, 6,getCustomXPos(335), getCustomYPos(130)));
+		addSlot(new Slot(par1InventoryPlayer, 7,getCustomXPos(351), getCustomYPos(85)));
 
         onCraftMatrixChanged(craftMatrix);
     }
     
     /**
-     * return the Gui x Pos for a real pixel x Pos
+     * return the Gui x Pos for a real pixel x Pos (tsukeyithan)
      */
     private int getCustomXPos(int value)
     {
@@ -105,7 +95,7 @@ public class ContainerPlayer extends Container
 	}
 	
     /**
-     * return the Gui y Pos for a real pixel y Pos
+     * return the Gui y Pos for a real pixel y Pos (tsukeyithan)
      */
     private int getCustomYPos(int value)
     {

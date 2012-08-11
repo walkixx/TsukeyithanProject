@@ -1,3 +1,5 @@
+/** fichier modifie par chaipokoi le 11/08/2012 **/
+
 package net.minecraft.src;
 
 public class SlotCrafting extends Slot
@@ -14,6 +16,7 @@ public class SlotCrafting extends Slot
         super(par3IInventory, par4, par5, par6);
         thePlayer = par1EntityPlayer;
         craftMatrix = par2IInventory;
+        isASlotCrafting=true;
     }
 
     /**

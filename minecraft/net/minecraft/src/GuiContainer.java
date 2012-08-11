@@ -182,6 +182,11 @@ public abstract class GuiContainer extends GuiScreen
         GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
     }
+    
+    protected void callParentDrawScreen(int par1,int par2,float par3)
+    {
+		super.drawScreen(par1,par2,par3);
+	}
 
     /**
      * Draw the foreground layer for the GuiContainer (everythin in front of the items)
@@ -198,7 +203,7 @@ public abstract class GuiContainer extends GuiScreen
     /**
      * Draws an inventory slot
      */
-    private void drawSlotInventory(Slot par1Slot)
+    protected void drawSlotInventory(Slot par1Slot)
     {
         int i = par1Slot.xDisplayPosition;
         int j = par1Slot.yDisplayPosition;
@@ -287,7 +292,7 @@ public abstract class GuiContainer extends GuiScreen
     /**
      * Returns if the passed mouse position is over the specified slot.
      */
-    private boolean isMouseOverSlot(Slot par1Slot, int par2, int par3)
+    protected boolean isMouseOverSlot(Slot par1Slot, int par2, int par3)
     {
         int i = guiLeft;
         int j = guiTop;

@@ -1,3 +1,5 @@
+/** fichier modifie par chaipokoi le 11/08/2012 */
+
 package net.minecraft.src;
 
 public class Slot
@@ -16,6 +18,12 @@ public class Slot
 
     /** display position of the inventory slot on the screen y axis */
     public int yDisplayPosition;
+    
+    /** is a slotCrafting ? (tsukeyithan)*/
+    public boolean isASlotCrafting;
+    
+    /** is slotArmor ? (tsukeyithan) */
+    public boolean isASlotArmor;
 
     public Slot(IInventory par1IInventory, int par2, int par3, int par4)
     {
@@ -23,6 +31,8 @@ public class Slot
         slotIndex = par2;
         xDisplayPosition = par3;
         yDisplayPosition = par4;
+        isASlotCrafting=false;
+        isASlotArmor=false;
     }
 
     public void func_48433_a(ItemStack par1ItemStack, ItemStack par2ItemStack)

@@ -1,4 +1,5 @@
 /** FILE GuiInventory **/
+/** fichier modifie par chaipokoi le 11/08/2012 */
 package net.minecraft.src;
 
 import java.util.*;
@@ -74,7 +75,139 @@ public class GuiInventory extends GuiContainer
      */
     public void drawScreen(int par1, int par2, float par3)
     {
-        super.drawScreen(par1, par2, par3);
+        drawDefaultBackground();
+        int i = guiLeft;
+        int j = guiTop;
+        drawGuiContainerBackgroundLayer(par3, par1, par2);
+        RenderHelper.enableGUIStandardItemLighting();
+        GL11.glPushMatrix();
+        GL11.glTranslatef(i, j, 0.0F);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+        Slot slot = null;
+        int k = 240;
+        int i1 = 240;
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)k / 1.0F, (float)i1 / 1.0F);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+
+        for (int l = 0; l < inventorySlots.inventorySlots.size(); l++)
+        {
+            Slot slot1 = (Slot)inventorySlots.inventorySlots.get(l);
+            drawSlotInventory(slot1);
+
+            if (isMouseOverSlot(slot1, par1, par2))
+            {
+                slot = slot1;
+                GL11.glDisable(GL11.GL_LIGHTING);
+                GL11.glDisable(GL11.GL_DEPTH_TEST);
+                int j1 = slot1.xDisplayPosition;
+                int k1 = slot1.yDisplayPosition;
+                int additionalSide=12;
+                if(slot1.inventory instanceof InventoryCrafting || slot1.isASlotCrafting || slot1.isASlotArmor)
+                {
+						additionalSide=10;
+				}
+                drawGradientRect(j1, k1, j1 + additionalSide, k1 + additionalSide, 0x80ffffff, 0x80ffffff);
+                GL11.glEnable(GL11.GL_LIGHTING);
+                GL11.glEnable(GL11.GL_DEPTH_TEST);
+            }
+        }
+
+        drawGuiContainerForegroundLayer();
+        InventoryPlayer inventoryplayer = mc.thePlayer.inventory;
+
+        if (inventoryplayer.getItemStack() != null)
+        {
+            GL11.glTranslatef(0.0F, 0.0F, 32F);
+            zLevel = 200F;
+            itemRenderer.zLevel = 200F;
+            itemRenderer.renderItemIntoGUI(fontRenderer, mc.renderEngine, inventoryplayer.getItemStack(), par1 - i - 8, par2 - j - 8);
+            itemRenderer.renderItemOverlayIntoGUI(fontRenderer, mc.renderEngine, inventoryplayer.getItemStack(), par1 - i - 8, par2 - j - 8);
+            zLevel = 0.0F;
+            itemRenderer.zLevel = 0.0F;
+        }
+
+        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+        RenderHelper.disableStandardItemLighting();
+        GL11.glDisable(GL11.GL_LIGHTING);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
+
+        if (inventoryplayer.getItemStack() == null && slot != null && slot.getHasStack())
+        {
+            ItemStack itemstack = slot.getStack();
+            List list = itemstack.getItemNameandInformation();
+
+            if (list.size() > 0)
+            {
+                int l1 = 0;
+
+                for (int i2 = 0; i2 < list.size(); i2++)
+                {
+                    int k2 = fontRenderer.getStringWidth((String)list.get(i2));
+
+                    if (k2 > l1)
+                    {
+                        l1 = k2;
+                    }
+                }
+
+                int j2 = (par1 - i) + 12;
+                int l2 = par2 - j - 12;
+                int i3 = l1;
+                int j3 = 8;
+
+                if (list.size() > 1)
+                {
+                    j3 += 2 + (list.size() - 1) * 10;
+                }
+
+                zLevel = 300F;
+                itemRenderer.zLevel = 300F;
+                int k3 = 0xf0100010;
+                drawGradientRect(j2 - 3, l2 - 4, j2 + i3 + 3, l2 - 3, k3, k3);
+                drawGradientRect(j2 - 3, l2 + j3 + 3, j2 + i3 + 3, l2 + j3 + 4, k3, k3);
+                drawGradientRect(j2 - 3, l2 - 3, j2 + i3 + 3, l2 + j3 + 3, k3, k3);
+                drawGradientRect(j2 - 4, l2 - 3, j2 - 3, l2 + j3 + 3, k3, k3);
+                drawGradientRect(j2 + i3 + 3, l2 - 3, j2 + i3 + 4, l2 + j3 + 3, k3, k3);
+                int l3 = 0x505000ff;
+                int i4 = (l3 & 0xfefefe) >> 1 | l3 & 0xff000000;
+                drawGradientRect(j2 - 3, (l2 - 3) + 1, (j2 - 3) + 1, (l2 + j3 + 3) - 1, l3, i4);
+                drawGradientRect(j2 + i3 + 2, (l2 - 3) + 1, j2 + i3 + 3, (l2 + j3 + 3) - 1, l3, i4);
+                drawGradientRect(j2 - 3, l2 - 3, j2 + i3 + 3, (l2 - 3) + 1, l3, l3);
+                drawGradientRect(j2 - 3, l2 + j3 + 2, j2 + i3 + 3, l2 + j3 + 3, i4, i4);
+
+                for (int j4 = 0; j4 < list.size(); j4++)
+                {
+                    String s = (String)list.get(j4);
+
+                    if (j4 == 0)
+                    {
+                        s = (new StringBuilder()).append("\247").append(Integer.toHexString(itemstack.getRarity().nameColor)).append(s).toString();
+                    }
+                    else
+                    {
+                        s = (new StringBuilder()).append("\2477").append(s).toString();
+                    }
+
+                    fontRenderer.drawStringWithShadow(s, j2, l2, -1);
+
+                    if (j4 == 0)
+                    {
+                        l2 += 2;
+                    }
+
+                    l2 += 10;
+                }
+
+                zLevel = 0.0F;
+                itemRenderer.zLevel = 0.0F;
+            }
+        }
+
+        GL11.glPopMatrix();
+        super.callParentDrawScreen(par1, par2, par3);
+        GL11.glEnable(GL11.GL_LIGHTING);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
         xSize_lo = par1;
         ySize_lo = par2;
     }
@@ -125,6 +258,55 @@ public class GuiInventory extends GuiContainer
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 	**/
     }
+    
+    
+     /**
+     * Draws an inventory slot
+     */
+    protected void drawSlotInventory(Slot par1Slot)
+    {
+        int i = par1Slot.xDisplayPosition;
+        int j = par1Slot.yDisplayPosition;
+        ItemStack itemstack = par1Slot.getStack();
+        boolean flag = false;
+        int k = i;
+        int l = j;
+        zLevel = 100F;
+        itemRenderer.zLevel = 100F;
+
+        if (itemstack == null)
+        {
+            int i1 = par1Slot.getBackgroundIconIndex();
+			/**
+            if (i1 >= 0)
+            {
+                GL11.glDisable(GL11.GL_LIGHTING);
+                mc.renderEngine.bindTexture(mc.renderEngine.getTexture("/gui/items.png"));
+                drawTexturedModalRect(k, l, (i1 % 16) * 16, (i1 / 16) * 16, 16, 16);
+                GL11.glEnable(GL11.GL_LIGHTING);
+                flag = true;
+            }
+            * */
+        }
+
+        if (!flag)
+        {
+			if(par1Slot.inventory instanceof InventoryCrafting || par1Slot.isASlotCrafting || par1Slot.isASlotArmor)
+			{
+				itemRenderer.renderItemIntoGUI(fontRenderer, mc.renderEngine, itemstack, k-2, l-2,10,10);	
+				itemRenderer.renderItemOverlayIntoGUI(fontRenderer, mc.renderEngine, itemstack, k-2, l-2);			
+			}
+			else
+			{
+				itemRenderer.renderItemIntoGUI(fontRenderer, mc.renderEngine, itemstack, k, l-1);
+				itemRenderer.renderItemOverlayIntoGUI(fontRenderer, mc.renderEngine, itemstack, k, l-1);
+			}
+        }
+
+        itemRenderer.zLevel = 0.0F;
+        zLevel = 0.0F;
+    }
+
 
     /**
      * Fired when a control is clicked. This is the equivalent of ActionListener.actionPerformed(ActionEvent e).
