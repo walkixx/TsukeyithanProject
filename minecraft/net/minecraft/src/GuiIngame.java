@@ -36,6 +36,9 @@ public class GuiIngame extends Gui
 
 	/** Previous frame vignette brightness (slowly changes by 1% each frame) */
 	float prevVignetteBrightness;
+	
+	/** interval between the two stats of the hand selector */
+	private int counter;
 
 	public GuiIngame(Minecraft par1Minecraft)
 	{
@@ -51,6 +54,7 @@ public class GuiIngame extends Gui
 		prevVignetteBrightness = 1.0F;
 		mc = par1Minecraft;
 		this.timer = 0;
+		this.counter=0;
 	}
 
 	/**
@@ -207,22 +211,28 @@ public class GuiIngame extends Gui
 				this.mc.renderEngine.bindTexture(this.mc.renderEngine.getTexture("/Tsukeyithan/Texture/HUDNude.png"));
 				DrawTexturedRect(i/2-237/2, j-92, 237,92);
 				this.mc.renderEngine.bindTexture(this.mc.renderEngine.getTexture("/Tsukeyithan/Texture/HUDItemChoice.png"));
-				if(inventoryplayer.currentItem == 0)
-					DrawTexturedRect(i/2-112.9F,j-35, 23, 24);
-				else if(inventoryplayer.currentItem == 1)
-					DrawTexturedRect(i/2-112.9F+22,j-35, 23, 24);				
-				else if(inventoryplayer.currentItem == 2)
-					DrawTexturedRect(i/2-112.9F+45,j-35, 23, 24);				
-				else if(inventoryplayer.currentItem == 3)
-					DrawTexturedRect(i/2-112.9F+68,j-35, 23, 24);
-				else if(inventoryplayer.currentItem == 4)
+				if(mc.thePlayer.inventory.currentHand==0)
+				{
+					if(inventoryplayer.currentItem == 0)
+						DrawTexturedRect(i/2-112.9F,j-35, 23, 24);
+					else if(inventoryplayer.currentItem == 1)
+						DrawTexturedRect(i/2-112.9F+22,j-35, 23, 24);				
+					else if(inventoryplayer.currentItem == 2)
+						DrawTexturedRect(i/2-112.9F+45,j-35, 23, 24);				
+					else if(inventoryplayer.currentItem == 3)
+						DrawTexturedRect(i/2-112.9F+68,j-35, 23, 24);
+				}
+				else
+				{
+				if(inventoryplayer.currentItemLeft == 4)
 					DrawTexturedRect(i/2-112.9F+135,j-35, 23, 24);
-				else if(inventoryplayer.currentItem == 5)
+				else if(inventoryplayer.currentItemLeft == 5)
 					DrawTexturedRect(i/2-112.9F+158,j-35, 23, 24);
-				else if(inventoryplayer.currentItem == 6)
+				else if(inventoryplayer.currentItemLeft == 6)
 					DrawTexturedRect(i/2-112.9F+181,j-35, 23, 24);
-				else if(inventoryplayer.currentItem == 7)
+				else if(inventoryplayer.currentItemLeft == 7)
 					DrawTexturedRect(i/2-112.9F+204,j-35, 23, 24);
+				}
 				
 				
 				
@@ -940,6 +950,21 @@ public class GuiIngame extends Gui
 	 */
 	public void updateTick()
 	{
+		this.counter-=1;
+		if(mc.gameSettings.keyBindChangeSelector.pressed && this.counter<=0)
+		{
+			if(mc.thePlayer.inventory.currentHand==0)
+			{
+				mc.thePlayer.inventory.currentHand=1;
+			}
+			else
+			{
+				mc.thePlayer.inventory.currentHand=0;
+			}
+			this.counter=10;
+		}
+		
+		
 		if (recordPlayingUpFor > 0)
 		{
 			recordPlayingUpFor--;
@@ -951,6 +976,7 @@ public class GuiIngame extends Gui
 		{
 			((ChatLine)chatMessageList.get(i)).updateCounter++;
 		}
+		
 	}
 
 	/**

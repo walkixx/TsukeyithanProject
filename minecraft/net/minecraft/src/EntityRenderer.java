@@ -692,10 +692,76 @@ public class EntityRenderer
     }
 
     /**
-     * Render player hand
+     * Render player hands
      */
     private void renderHand(float par1, int par2)
     {
+		//right hand
+        if (debugViewDirection > 0)
+        {
+            return;
+        }
+
+        GL11.glMatrixMode(GL11.GL_PROJECTION);
+        GL11.glLoadIdentity();
+        float f = 0.07F;
+
+        if (mc.gameSettings.anaglyph)
+        {
+            GL11.glTranslatef((float)(-(par2 * 2 - 1)) * f, 0.0F, 0.0F);
+        }
+
+        if (cameraZoom != 1.0D)
+        {
+            GL11.glTranslatef((float)cameraYaw, (float)(-cameraPitch), 0.0F);
+            GL11.glScaled(cameraZoom, cameraZoom, 1.0D);
+        }
+
+        GLU.gluPerspective(getFOVModifier(par1, false), (float)mc.displayWidth / (float)mc.displayHeight, 0.05F, farPlaneDistance * 2.0F);
+
+        if (mc.playerController.func_35643_e())
+        {
+            float f1 = 0.6666667F;
+            GL11.glScalef(1.0F, f1, 1.0F);
+        }
+
+        GL11.glMatrixMode(GL11.GL_MODELVIEW);
+        GL11.glLoadIdentity();
+
+        if (mc.gameSettings.anaglyph)
+        {
+            GL11.glTranslatef((float)(par2 * 2 - 1) * 0.1F, 0.0F, 0.0F);
+        }
+
+        GL11.glPushMatrix();
+        hurtCameraEffect(par1);
+
+        if (mc.gameSettings.viewBobbing)
+        {
+            setupViewBobbing(par1);
+        }
+
+        if (mc.gameSettings.thirdPersonView == 0 && !mc.renderViewEntity.isPlayerSleeping() && !mc.gameSettings.hideGUI && !mc.playerController.func_35643_e())
+        {
+            enableLightmap(par1);
+            itemRenderer.renderItemInFirstPerson(par1);
+            disableLightmap(par1);
+        }
+
+        GL11.glPopMatrix();
+
+        if (mc.gameSettings.thirdPersonView == 0 && !mc.renderViewEntity.isPlayerSleeping())
+        {
+            itemRenderer.renderOverlays(par1);
+            hurtCameraEffect(par1);
+        }
+
+        if (mc.gameSettings.viewBobbing)
+        {
+            setupViewBobbing(par1);
+        }
+        
+		//left hand
         if (debugViewDirection > 0)
         {
             return;
