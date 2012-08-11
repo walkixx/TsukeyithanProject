@@ -40,8 +40,7 @@ import Tsukeyithan.Player.*;
 public class TKHPlayerManager
 {
 	//private static HashMap <String, Boolean> liste = new HashMap<String, Boolean>();
-	public static EntityPlayer players;
-	public static HashMap <String, HashMap<String, Boolean>> player = new HashMap<String, HashMap<String, Boolean>>();
+	private static HashMap <String, HashMap<String, Boolean>> player = new HashMap<String, HashMap<String, Boolean>>();
 	byte i;
 
 	public TKHPlayerManager()
@@ -140,6 +139,13 @@ public class TKHPlayerManager
 		
 		//return new TKHEntityHuman(mc, par1World, session, worldType); (test de collision)
 		return new TKHEntitySismeroanMale(mc, par1World, session, worldType);
+	}
+	
+	public static boolean GetPlayerProp(String prop)
+	{
+		if(player.containsKey(TKHConfig.mc.session.username) && player.get(TKHConfig.mc.session.username).containsKey(prop))
+			return true;
+		return false;
 	}
 	
 	public static void UpdatePlayer()

@@ -35,6 +35,7 @@ public class TKHCMPEntityVuurkhenMale extends EntityClientPlayerMP {
 				.append(".png").toString();
         speedOnGround = 0.1F*0.9F;
         speedInAir = 0.02F*0.9F;
+        addSkillEffect(new TKHSkillEffect(TKHSkill.isVuurkhen.skillID, -1, 0));
 		addSkillEffect(new TKHSkillEffect(TKHSkill.speedLava.skillID, -1, 0));
 		addSkillEffect(new TKHSkillEffect(TKHSkill.sprintLava.skillID, -1, 0));
 		addSkillEffect(new TKHSkillEffect(TKHSkill.dropMeat.skillID, -1, 0));

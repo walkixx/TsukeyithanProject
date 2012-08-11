@@ -33,6 +33,7 @@ public class TKHOMPEntityNeerianFemale extends EntityOtherPlayerMP
 				.append("http://walkixx.com/Minecraft/Tsukeyithan/Skin/")
 				.append(entityType).append("/").append(par2Str)
 				.append(".png").toString();
+        addSkillEffect(new TKHSkillEffect(TKHSkill.isNeerian.skillID, -1, 0));
 		addSkillEffect(new TKHSkillEffect(TKHSkill.speedWater.skillID, -1, 0));
 		addSkillEffect(new TKHSkillEffect(TKHSkill.sprintWater.skillID, -1, 0));
 		addSkillEffect(new TKHSkillEffect(TKHSkill.exacavationWater.skillID, -1, 0));

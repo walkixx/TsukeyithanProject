@@ -26,6 +26,7 @@ public class TKHOMPEntityAraosethMale extends EntityOtherPlayerMP
 		skinUrl = (new StringBuilder()).append("http://walkixx.com/Minecraft/Tsukeyithan/Skin/").append(entityType).append("/").append(par2Str).append(".png").toString();
 		speedOnGround = 0.1F*1.5F;
         speedInAir = 0.02F*1.5F;
+        addSkillEffect(new TKHSkillEffect(TKHSkill.isAraoseth.skillID, -1, 0));
 		addSkillEffect(new TKHSkillEffect(TKHSkill.incJump.skillID, -1, 0));
 		addSkillEffect(new TKHSkillEffect(TKHSkill.incCC.skillID, -1, 0));
 		addSkillEffect(new TKHSkillEffect(TKHSkill.noSoulSand.skillID, -1, 0));

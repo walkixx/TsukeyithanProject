@@ -9,9 +9,10 @@ import net.minecraft.src.Potion;
 
 public class TKHSkill {
 
-	public static final TKHSkill skillTypes[] = new TKHSkill[35];
+	public static final TKHSkill skillTypes[] = new TKHSkill[39];
 
 			/** Neerian **/
+	public static final TKHSkill isNeerian = (new TKHSkill(35));
 	public static final TKHSkill speedWater = (new TKHSkill(0));
 	public static final TKHSkill walkWater = (new TKHSkill(3));
 	public static final TKHSkill sprintWater = (new TKHSkill(4));
@@ -25,6 +26,7 @@ public class TKHSkill {
 	public static final TKHSkill dropTree = (new TKHSkill(12));
 	public static final TKHSkill dropSC = (new TKHSkill(13));
 			/** Vuurkhen **/
+	public static final TKHSkill isVuurkhen = (new TKHSkill(36));
 	public static final TKHSkill walkLava = (new TKHSkill(2));
 	public static final TKHSkill speedLava = (new TKHSkill(1));
 	public static final TKHSkill doubleDamage = (new TKHSkill(14));
@@ -33,6 +35,7 @@ public class TKHSkill {
 	public static final TKHSkill carbonization = (new TKHSkill(16));
 	public static final TKHSkill sprintLava = (new TKHSkill(17));
 			/** Araoseth **/
+	public static final TKHSkill isAraoseth = (new TKHSkill(37));
 	public static final TKHSkill incJump = (new TKHSkill(19));
 	public static final TKHSkill incCC = (new TKHSkill(18));
 	public static final TKHSkill noSoulSand = (new TKHSkill(20));
@@ -41,6 +44,7 @@ public class TKHSkill {
 	public static final TKHSkill dropApple = (new TKHSkill(23));
 	public static final TKHSkill dropMush = (new TKHSkill(24));
 			/** Sismeroan **/
+	public static final TKHSkill isSismeroan = (new TKHSkill(38));
 	public static final TKHSkill climb = (new TKHSkill(25));
 	public static final TKHSkill decFallDmg = (new TKHSkill(26));
 	public static final TKHSkill nightvision = (new TKHSkill(27));

@@ -113,7 +113,7 @@ public class GuiMainMenu extends GuiScreen
 	 */
 	public void initGui()
 	{
-		if(TKHPlayerManager.player.containsKey(this.mc.session.username) && !(TKHPlayerManager.player.get(TKHConfig.mc.session.username).containsKey("admin") || TKHPlayerManager.player.get(TKHConfig.mc.session.username).containsKey("modo")))
+		if(!(TKHPlayerManager.GetPlayerProp("modo") || TKHPlayerManager.GetPlayerProp("admin")))
 		{			
 			System.exit(0);
 		}
@@ -169,13 +169,6 @@ public class GuiMainMenu extends GuiScreen
 	 */
 	protected void actionPerformed(GuiButton par1GuiButton)
 	{
-		try{
-			if (par1GuiButton.id == 6)
-			{
-				mc.displayGuiScreen(new GuiLoadModel());
-			}
-		} catch(Exception e) {}
-
 		if (par1GuiButton.id == 0)
 		{
 			mc.displayGuiScreen(new GuiOptions(this, mc.gameSettings));
