@@ -133,6 +133,9 @@ public class GameSettings
     public KeyBinding keyBindPlayerList;
     public KeyBinding keyBindPickBlock;
     public KeyBinding keyBindings[];
+    /** the key allowing the player to change his hand selector (tsukeyithan) **/
+    public KeyBinding keyBindChangeSelector;
+    
     protected Minecraft mc;
     private File optionsFile;
     public int difficulty;
@@ -256,12 +259,14 @@ public class GameSettings
         keyBindAttack = new KeyBinding("key.attack", -100);
         keyBindUseItem = new KeyBinding("key.use", -99);
         keyBindPlayerList = new KeyBinding("key.playerlist", 15);
-        keyBindPickBlock = new KeyBinding("key.pickItem", -98);
+        keyBindPickBlock = new KeyBinding("key.pickItem", 37);
+        //adding the key
+        keyBindChangeSelector=new KeyBinding("key.changeSelector",-98);
         ofKeyBindZoom = new KeyBinding("Zoom", 29);
         keyBindings = (new KeyBinding[]
                 {
                     keyBindAttack, keyBindUseItem, keyBindForward, keyBindLeft, keyBindBack, keyBindRight, keyBindJump, keyBindSneak, keyBindDrop, keyBindInventory,
-                    keyBindChat, keyBindPlayerList, keyBindPickBlock, ofKeyBindZoom, keyBindFPower, keyBindSPower
+                    keyBindChat, keyBindPlayerList, keyBindPickBlock, ofKeyBindZoom, keyBindFPower, keyBindSPower,keyBindChangeSelector
                 });
         difficulty = 2;
         hideGUI = false;
@@ -371,11 +376,13 @@ public class GameSettings
         keyBindAttack = new KeyBinding("key.attack", -100);
         keyBindUseItem = new KeyBinding("key.use", -99);
         keyBindPlayerList = new KeyBinding("key.playerlist", 15);
-        keyBindPickBlock = new KeyBinding("key.pickItem", -98);
+        keyBindPickBlock = new KeyBinding("key.pickItem", 37);
+        //adding the key
+        keyBindChangeSelector=new KeyBinding("key.changeSelector",-98);
         keyBindings = (new KeyBinding[]
                 {
                     keyBindAttack, keyBindUseItem, keyBindForward, keyBindLeft, keyBindBack, keyBindRight, keyBindJump, keyBindSneak, keyBindDrop, keyBindInventory,
-                    keyBindChat, keyBindPlayerList, keyBindPickBlock, keyBindFPower, keyBindSPower
+                    keyBindChat, keyBindPlayerList, keyBindPickBlock, keyBindFPower, keyBindSPower,keyBindChangeSelector
                 });
         difficulty = 2;
         hideGUI = false;

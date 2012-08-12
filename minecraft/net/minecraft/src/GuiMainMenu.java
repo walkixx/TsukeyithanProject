@@ -115,7 +115,7 @@ public class GuiMainMenu extends GuiScreen
 	{
 		if(!(TKHPlayerManager.GetPlayerProp("modo") || TKHPlayerManager.GetPlayerProp("admin")))
 		{			
-			System.exit(0);
+			//System.out.exit(0);
 		}
 		viewportTexture = mc.renderEngine.allocateAndSetupTexture(new java.awt.image.BufferedImage(256, 256, 2));
 		Calendar calendar = Calendar.getInstance();
@@ -136,6 +136,10 @@ public class GuiMainMenu extends GuiScreen
 		else if (calendar.get(2) + 1 == 1 && calendar.get(5) == 1)
 		{
 			splashText = "Happy new year!";
+		}
+		else if (calendar.get(2) + 1 == 8 && calendar.get(5) == 12)
+		{
+			splashText = "Happy birthday chaipokoi!";
 		}
 
 		StringTranslate stringtranslate = StringTranslate.getInstance();

@@ -18,7 +18,6 @@ import org.lwjgl.opengl.GLContext;
 import org.lwjgl.util.glu.GLU;
 
 import Tsukeyithan.Manager.TKHConfig;
-import Tsukeyithan.Manager.TKHPlayerManager;
 import Tsukeyithan.Skill.TKHSkill;
 
 public class EntityRenderer
@@ -472,20 +471,19 @@ public class EntityRenderer
      */
     private void orientCamera(float par1)
     {
-        
         EntityLiving entityliving = mc.renderViewEntity;
         float f = entityliving.yOffset - 1.62F;
         double d = entityliving.prevPosX + (entityliving.posX - entityliving.prevPosX) * (double)par1;
         double d1 = (entityliving.prevPosY + (entityliving.posY - entityliving.prevPosY) * (double)par1) - (double)f;
         double d2 = entityliving.prevPosZ + (entityliving.posZ - entityliving.prevPosZ) * (double)par1;
         GL11.glRotatef(prevCamRoll + (camRoll - prevCamRoll) * par1, 0.0F, 0.0F, 1.0F);
-        
+
         if (entityliving.isPlayerSleeping())
         {
             f = (float)((double)f + 1.0D);
             GL11.glTranslatef(0.0F, 0.3F, 0.0F);
 
-            if (!mc.gameSettings.debugCamEnable && !TKHPlayerManager.GetPlayerProp("codeur"))
+            if (!mc.gameSettings.debugCamEnable)
             {
                 int i = mc.theWorld.getBlockId(MathHelper.floor_double(entityliving.posX), MathHelper.floor_double(entityliving.posY), MathHelper.floor_double(entityliving.posZ));
 
@@ -504,7 +502,7 @@ public class EntityRenderer
         {
             double d3 = thirdPersonDistanceTemp + (thirdPersonDistance - thirdPersonDistanceTemp) * par1;
 
-            if (mc.gameSettings.debugCamEnable || TKHPlayerManager.GetPlayerProp("codeur"))
+            if (mc.gameSettings.debugCamEnable)
             {
                 float f1 = prevDebugCamYaw + (debugCamYaw - prevDebugCamYaw) * par1;
                 float f3 = prevDebugCamPitch + (debugCamPitch - prevDebugCamPitch) * par1;
@@ -563,15 +561,13 @@ public class EntityRenderer
         }
         else
         {
-            GL11.glTranslatef(0.0F, -0.0F, -0.1F);
+            GL11.glTranslatef(0.0F, 0.0F, -0.1F);
         }
 
-        if (!mc.gameSettings.debugCamEnable )
+        if (!mc.gameSettings.debugCamEnable)
         {
             GL11.glRotatef(entityliving.prevRotationPitch + (entityliving.rotationPitch - entityliving.prevRotationPitch) * par1, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(entityliving.prevRotationYaw + (entityliving.rotationYaw - entityliving.prevRotationYaw) * par1 + 180F, 0.0F, 1.0F, 0.0F);
-            if(TKHPlayerManager.GetPlayerProp("sismeroan"))
-            	GL11.glTranslatef(0F, -0.75F, 0F);
         }
 
         GL11.glTranslatef(0.0F, f, 0.0F);
@@ -588,6 +584,7 @@ public class EntityRenderer
     {
         farPlaneDistance = 32 << 3 - mc.gameSettings.renderDistance;
         farPlaneDistance = mc.gameSettings.ofRenderDistanceFine;
+
         if (Config.isFogFancy())
         {
             farPlaneDistance = farPlaneDistance * 0.95F;
@@ -601,9 +598,6 @@ public class EntityRenderer
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
         float f = 0.07F;
-        
-        if(this.mc.thePlayer.isSkillActive(TKHSkill.isSismeroan))
-            GL11.glTranslatef(0F, 0F, 0F);
 
         if (mc.gameSettings.anaglyph)
         {
@@ -702,7 +696,6 @@ public class EntityRenderer
      */
     private void renderHand(float par1, int par2)
     {
-		//right hand
         if (debugViewDirection > 0)
         {
             return;
@@ -711,6 +704,7 @@ public class EntityRenderer
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
         float f = 0.07F;
+        float f1;
 
         if (mc.gameSettings.anaglyph)
         {
@@ -727,72 +721,7 @@ public class EntityRenderer
 
         if (mc.playerController.func_35643_e())
         {
-            float f1 = 0.6666667F;
-            GL11.glScalef(1.0F, f1, 1.0F);
-        }
-
-        GL11.glMatrixMode(GL11.GL_MODELVIEW);
-        GL11.glLoadIdentity();
-
-        if (mc.gameSettings.anaglyph)
-        {
-            GL11.glTranslatef((float)(par2 * 2 - 1) * 0.1F, 0.0F, 0.0F);
-        }
-
-        GL11.glPushMatrix();
-        hurtCameraEffect(par1);
-
-        if (mc.gameSettings.viewBobbing)
-        {
-            setupViewBobbing(par1);
-        }
-
-        if (mc.gameSettings.thirdPersonView == 0 && !mc.renderViewEntity.isPlayerSleeping() && !mc.gameSettings.hideGUI && !mc.playerController.func_35643_e())
-        {
-            enableLightmap(par1);
-            itemRenderer.renderItemInFirstPerson(par1);
-            disableLightmap(par1);
-        }
-
-        GL11.glPopMatrix();
-
-        if (mc.gameSettings.thirdPersonView == 0 && !mc.renderViewEntity.isPlayerSleeping())
-        {
-            itemRenderer.renderOverlays(par1);
-            hurtCameraEffect(par1);
-        }
-
-        if (mc.gameSettings.viewBobbing)
-        {
-            setupViewBobbing(par1);
-        }
-        
-		//left hand
-        if (debugViewDirection > 0)
-        {
-            return;
-        }
-
-        GL11.glMatrixMode(GL11.GL_PROJECTION);
-        GL11.glLoadIdentity();
-        float f = 0.07F;
-
-        if (mc.gameSettings.anaglyph)
-        {
-            GL11.glTranslatef((float)(-(par2 * 2 - 1)) * f, 0.0F, 0.0F);
-        }
-
-        if (cameraZoom != 1.0D)
-        {
-            GL11.glTranslatef((float)cameraYaw, (float)(-cameraPitch), 0.0F);
-            GL11.glScaled(cameraZoom, cameraZoom, 1.0D);
-        }
-
-        GLU.gluPerspective(getFOVModifier(par1, false), (float)mc.displayWidth / (float)mc.displayHeight, 0.05F, farPlaneDistance * 2.0F);
-
-        if (mc.playerController.func_35643_e())
-        {
-            float f1 = 0.6666667F;
+			f1 = 0.6666667F;
             GL11.glScalef(1.0F, f1, 1.0F);
         }
 

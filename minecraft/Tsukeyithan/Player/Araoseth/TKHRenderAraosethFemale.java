@@ -343,6 +343,62 @@ public class TKHRenderAraosethFemale extends RenderLiving
 
             GL11.glPopMatrix();
         }
+        	/**
+			* Rendering the left hand (tsukeyithan)
+			*/
+			itemstack1 = par1EntityPlayer.inventory.getCurrentItemLeft();
+			if (itemstack1 != null)
+			{
+				GL11.glPushMatrix();
+				TKHModelAraosethMaleMain.EPAULE_GAUCHE.postRender(0.0625F);
+				GL11.glTranslatef(0.0625F, 0.4375F, 0.0625F);
+
+				if (itemstack1.itemID < 256 && RenderBlocks.renderItemIn3d(Block.blocksList[itemstack1.itemID].getRenderType()))
+				{
+					float f = 0.5F;
+					GL11.glTranslatef(0.0F, 0.1875F, -0.3125F);
+					f *= 0.75F;
+					GL11.glRotatef(20F, 1.0F, 0.0F, 0.0F);
+					GL11.glRotatef(45F, 0.0F, 1.0F, 0.0F);
+					GL11.glScalef(f, -f, f);
+				}
+				else if (Item.itemsList[itemstack1.itemID].isFull3D())
+				{
+					float f2 = 0.625F;
+					GL11.glTranslatef(0.0F, 0.1875F, 0.0F);
+					GL11.glScalef(f2, -f2, f2);
+					GL11.glRotatef(-100F, 1.0F, 0.0F, 0.0F);
+					GL11.glRotatef(45F, 0.0F, 1.0F, 0.0F);
+				}
+				else
+				{
+					float f3 = 0.375F;
+					GL11.glTranslatef(0.25F, 0.1875F, -0.1875F);
+					GL11.glScalef(f3, f3, f3);
+					GL11.glRotatef(60F, 0.0F, 0.0F, 1.0F);
+					GL11.glRotatef(-90F, 1.0F, 0.0F, 0.0F);
+					GL11.glRotatef(20F, 0.0F, 0.0F, 1.0F);
+				}
+
+
+				if (itemstack1.getItem().func_46058_c())
+				{
+					for (int j = 0; j <= 1; j++)
+					{
+						int k = itemstack1.getItem().getColorFromDamage(itemstack1.getItemDamage(), j);
+						float f8 = (float)(k >> 16 & 0xff) / 255F;
+						float f9 = (float)(k >> 8 & 0xff) / 255F;
+						float f11 = (float)(k & 0xff) / 255F;
+						GL11.glColor4f(f8, f9, f11, 1.0F);
+						renderManager.itemRenderer.renderItem(par1EntityPlayer, itemstack1, j);
+					}
+				}
+				else
+				{
+					renderManager.itemRenderer.renderItem(par1EntityPlayer, itemstack1, 0);
+				} 
+			GL11.glPopMatrix();
+		  }
     }
 
     protected void renderPlayerScale(EntityPlayer par1EntityPlayer, float par2)
@@ -351,11 +407,24 @@ public class TKHRenderAraosethFemale extends RenderLiving
         GL11.glScalef(f, f, f);
     }
 
-    public void drawFirstPersonHand()
+	/** 
+	 * the old method drawFirstPersonHand() renamed in drawFirstPersonRightHand() to allow the rendering of this hand without the Left Hand 
+	 */
+    public void drawFirstPersonRightHand()
     {
         TKHModelAraosethMaleMain.onGround = 0.0F;
         TKHModelAraosethMaleMain.setRotationAngles(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
-        TKHModelAraosethMaleMain.BRAS_DROIT.render(0.0625F);
+        TKHModelAraosethMaleMain.EPAULE_DROITE.render(0.0625F);
+    }
+    
+    /**
+     * Render the left Hand 
+     */
+    public void drawFirstPersonLeftHand()
+    {
+        TKHModelAraosethMaleMain.onGround = 0.0F;
+        TKHModelAraosethMaleMain.setRotationAngles(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
+        TKHModelAraosethMaleMain.EPAULE_GAUCHE.render(0.0625F);
     }
 
     /**

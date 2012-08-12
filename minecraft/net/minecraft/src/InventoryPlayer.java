@@ -7,8 +7,12 @@ public class InventoryPlayer implements IInventory
     public ItemStack mainInventory[];
     public ItemStack armorInventory[];
 
-    /** The index of the currently held item (0-8). */
+    /** The index of the currently held items (0-8). */
     public int currentItem;
+    public int currentItemLeft;
+    
+    /** The index of the currently used hand */
+    public int currentHand;
 
     /** The player whose inventory this is. */
     public EntityPlayer player;
@@ -25,6 +29,8 @@ public class InventoryPlayer implements IInventory
         mainInventory = new ItemStack[36];
         armorInventory = new ItemStack[4];
         currentItem = 0;
+        currentItemLeft=7;
+        currentHand=0;
         inventoryChanged = false;
         player = par1EntityPlayer;
     }
@@ -38,6 +44,18 @@ public class InventoryPlayer implements IInventory
         if (currentItem < 8 && currentItem >= 0)
         {
             return mainInventory[currentItem];
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
+    public ItemStack getCurrentItemLeft()
+    {
+        if (currentItemLeft < 8 && currentItemLeft >= 0)
+        {
+            return mainInventory[currentItemLeft];
         }
         else
         {
@@ -111,69 +129,147 @@ public class InventoryPlayer implements IInventory
      */
     public void setCurrentItem(int par1, int par2, boolean par3, boolean par4)
     {
-        int i = -1;
+		if(currentHand==0)
+		{
+			int i = -1;
 
-        if (par3)
-        {
-            i = getInventorySlotContainItemAndDamage(par1, par2);
-        }
-        else
-        {
-            i = getInventorySlotContainItem(par1);
-        }
+			if (par3)
+			{
+				i = getInventorySlotContainItemAndDamage(par1, par2);
+			}
+			else
+			{
+				i = getInventorySlotContainItem(par1);
+			}
 
-        if (i >= 0 && i < 9)
-        {
-            currentItem = i;
-            return;
-        }
+			if (i >= 0 && i < 4)
+			{
+				currentItem = i;
+				return;
+			}
 
-        if (par4 && par1 > 0)
-        {
-            int j = getFirstEmptyStack();
+			if (par4 && par1 > 0)
+			{
+				int j = getFirstEmptyStack();
 
-            if (j >= 0 && j < 8)
-            {
-                currentItem = j;
-            }
+				if (j >= 0 && j < 4)
+				{
+					currentItem = j;
+				}
 
-            func_52006_a(Item.itemsList[par1], par2);
-        }
+				func_52006_a(Item.itemsList[par1], par2);
+			}
+		}
+		else
+		{
+			int i = -1;
+
+			if (par3)
+			{
+				i = getInventorySlotContainItemAndDamage(par1, par2);
+			}
+			else
+			{
+				i = getInventorySlotContainItem(par1);
+			}
+
+			if (i >= 4 && i < 8)
+			{
+				currentItemLeft = i;
+				return;
+			}
+
+			if (par4 && par1 > 0)
+			{
+				int j = getFirstEmptyStack();
+
+				if (j >= 4 && j < 8)
+				{
+					currentItemLeft = j;
+				}
+
+				func_52006_a(Item.itemsList[par1], par2);
+			}
+		}
     }
+    
 
     /**
      * Switch the current item to the next one or the previous one
      */
     public void changeCurrentItem(int par1)
     {
-        if (par1 > 0)
-        {
-            par1 = 1;
-        }
+		if(currentHand==0)
+		{
+			if (par1 > 0)
+			{
+				par1 = 1;
+			}
 
-        if (par1 < 0)
-        {
-            par1 = -1;
-        }
+			if (par1 < 0)
+			{
+				par1 = -1;
+			}
 
-        for (currentItem -= par1; currentItem < 0; currentItem += 8) { }
+			currentItem+=par1;
+			if(currentItem<0)
+				currentItem=3;
+			
+			if(currentItem>3)
+				currentItem=0;
+		}
+		else
+		{
+			if (par1 > 0)
+			{
+				par1 = 1;
+			}
 
-        for (; currentItem >= 8; currentItem -= 8) { }
+
+			if (par1 < 0)
+			{
+				par1 = -1;
+			}
+
+			currentItemLeft+=par1;
+			if(currentItemLeft<4)
+				currentItemLeft=7;
+			
+			if(currentItemLeft>7)
+				currentItemLeft=4;
+		}	
     }
 
     public void func_52006_a(Item par1Item, int par2)
     {
-        if (par1Item != null)
-        {
-            int i = getInventorySlotContainItemAndDamage(par1Item.shiftedIndex, par2);
+		if(currentHand==0)
+		{
+			if (par1Item != null)
+			{
+				int i = getInventorySlotContainItemAndDamage(par1Item.shiftedIndex, par2);
 
-            if (i >= 0)
-            {
-                mainInventory[i] = mainInventory[currentItem];
-            }
+				if (i >= 0)
+				{
+					mainInventory[i] = mainInventory[currentItem];
+				}
 
-            mainInventory[currentItem] = new ItemStack(Item.itemsList[par1Item.shiftedIndex], 1, par2);
-        }
+				mainInventory[currentItem] = new ItemStack(Item.itemsList[par1Item.shiftedIndex], 1, par2);
+			}
+		}
+		else
+		{
+			if (par1Item != null)
+			{
+				int i = getInventorySlotContainItemAndDamage(par1Item.shiftedIndex, par2);
+
+				if (i >= 0)
+				{
+					mainInventory[i] = mainInventory[currentItemLeft];
+				}
+
+				mainInventory[currentItemLeft] = new ItemStack(Item.itemsList[par1Item.shiftedIndex], 1, par2);
+			}
+		}
     }
 
     /**
@@ -427,11 +523,20 @@ public class InventoryPlayer implements IInventory
     public float getStrVsBlock(Block par1Block)
     {
         float f = 1.0F;
-
-        if (mainInventory[currentItem] != null)
-        {
-            f *= mainInventory[currentItem].getStrVsBlock(par1Block);
-        }
+		if(currentHand==0)
+		{
+			if (mainInventory[currentItem] != null)
+			{
+				f *= mainInventory[currentItem].getStrVsBlock(par1Block);
+			}
+		}
+		else
+		{
+			if (mainInventory[currentItemLeft] != null)
+			{
+				f *= mainInventory[currentItemLeft].getStrVsBlock(par1Block);
+			}			
+		}
 
         return f;
     }

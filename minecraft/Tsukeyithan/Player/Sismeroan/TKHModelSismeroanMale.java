@@ -51,7 +51,7 @@ public class TKHModelSismeroanMale extends ModelBase
     TKHModelRenderer COUDE_DROIT;
     TKHModelRenderer POIGNET_DROIT;
     TKHModelRenderer COUDE_GAUCHE;
-    TKHModelRenderer POIGNET_GAUCHE;
+    public TKHModelRenderer POIGNET_GAUCHE;
     TKHModelRenderer EPAULE_DROITE;
     TKHModelRenderer EPAULE_GAUCHE;
     TKHModelRenderer FEMUR_DROIT;
